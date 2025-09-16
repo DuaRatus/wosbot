@@ -8,10 +8,7 @@ import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import cl.camodev.utiles.UtilTime;
-import cl.camodev.wosbot.console.enumerable.EnumConfigurationKey;
-import cl.camodev.wosbot.console.enumerable.EnumTemplates;
-import cl.camodev.wosbot.console.enumerable.EnumTpMessageSeverity;
-import cl.camodev.wosbot.console.enumerable.TpDailyTaskEnum;
+import cl.camodev.wosbot.console.enumerable.*;
 import cl.camodev.wosbot.emulator.EmulatorManager;
 import cl.camodev.wosbot.ex.ADBConnectionException;
 import cl.camodev.wosbot.ex.HomeNotFoundException;
@@ -306,7 +303,7 @@ public class TaskQueue {
                 if (helpAlliesCount % 10 == 0) {
                     helpAlliesCount = 0;
 
-                    if (profile.getConfig(EnumConfigurationKey.ALLIANCE_HELP_BOOL, Boolean.class)) {
+                    if (profile.getConfig(EnumConfigurationKey.ALLIANCE_HELP_REQUESTS_BOOL, Boolean.class)) {
                         try {
                             Thread t = new Thread(() -> {
                                 // Check if the emulator is running before searching for help
@@ -337,7 +334,7 @@ public class TaskQueue {
 				// Check conditions based on the minimum delay of the task queue
 				if (minDelay != Long.MAX_VALUE) { // Ensure there are tasks in the queue
 					long maxIdle = 0;
-					maxIdle = Optional.ofNullable(profile.getGlobalsettings().get(EnumConfigurationKey.MAX_IDLE_TIME_INT.name())).map(Integer::parseInt).orElse(Integer.parseInt(EnumConfigurationKey.MAX_IDLE_TIME_INT.getDefaultValue()));
+					maxIdle = Optional.ofNullable(profile.getGlobalsettings().get(EnumGlobalConfig.MAX_IDLE_TIME_INT.name())).map(Integer::parseInt).orElse(Integer.parseInt(EnumGlobalConfig.MAX_IDLE_TIME_INT.getDefaultValue()));
 
 					if (!idlingTimeExceded && minDelay > TimeUnit.MINUTES.toSeconds(maxIdle)) {
 						idlingTimeExceded = true;

@@ -24,7 +24,7 @@ public class BankTask extends DelayedTask {
 
 	@Override
 	protected void execute() {
-		int bankDelay = profile.getConfig(EnumConfigurationKey.INT_BANK_DELAY, Integer.class);
+		int bankDelay = profile.getConfig(EnumConfigurationKey.BANK_DELAY_INT, Integer.class);
 
 		if (navigateToBank()) {
 			handleBankOperations(bankDelay);
@@ -249,7 +249,7 @@ public class BankTask extends DelayedTask {
 			// No active deposit found - make a new deposit
 			logInfo("No active deposit found. Creating a new deposit.");
 
-			int bankDelay = profile.getConfig(EnumConfigurationKey.INT_BANK_DELAY, Integer.class);
+			int bankDelay = profile.getConfig(EnumConfigurationKey.BANK_DELAY_INT, Integer.class);
 			makeNewDeposit(bankDelay);
 		}
 	}

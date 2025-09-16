@@ -17,10 +17,7 @@ import cl.camodev.wosbot.almac.repo.IConfigRepository;
 import cl.camodev.wosbot.almac.repo.IDailyTaskRepository;
 import cl.camodev.wosbot.almac.repo.IProfileRepository;
 import cl.camodev.wosbot.almac.repo.ProfileRepository;
-import cl.camodev.wosbot.console.enumerable.EnumConfigurationKey;
-import cl.camodev.wosbot.console.enumerable.EnumTpMessageSeverity;
-import cl.camodev.wosbot.console.enumerable.TpConfigEnum;
-import cl.camodev.wosbot.console.enumerable.TpDailyTaskEnum;
+import cl.camodev.wosbot.console.enumerable.*;
 import cl.camodev.wosbot.emulator.EmulatorManager;
 import cl.camodev.wosbot.ot.DTOBotState;
 import cl.camodev.wosbot.ot.DTODailyTaskStatus;
@@ -67,10 +64,10 @@ public class ServScheduler {
 		}
 		HashMap<String, String> globalsettings = ServConfig.getServices().getGlobalConfig();
 		globalsettings.forEach((key, value) -> {
-			if (key.equals(EnumConfigurationKey.MUMU_PATH_STRING.name())) {
-				saveEmulatorPath(EnumConfigurationKey.MUMU_PATH_STRING.name(), value);
-			} else if (key.equals(EnumConfigurationKey.LDPLAYER_PATH_STRING.name())) {
-				saveEmulatorPath(EnumConfigurationKey.LDPLAYER_PATH_STRING.name(), value);
+			if (key.equals(EnumGlobalConfig.MUMU_PATH_STRING.name())) {
+				saveEmulatorPath(EnumGlobalConfig.MUMU_PATH_STRING.name(), value);
+			} else if (key.equals(EnumGlobalConfig.LDPLAYER_PATH_STRING.name())) {
+				saveEmulatorPath(EnumGlobalConfig.LDPLAYER_PATH_STRING.name(), value);
 			}
 		});
 		List<DTOProfiles> profiles = ServProfiles.getServices().getProfiles();

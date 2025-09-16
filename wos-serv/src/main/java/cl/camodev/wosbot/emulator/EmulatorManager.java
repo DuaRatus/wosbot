@@ -11,6 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import cl.camodev.utiles.ImageSearchUtil;
 import cl.camodev.wosbot.console.enumerable.EnumConfigurationKey;
+import cl.camodev.wosbot.console.enumerable.EnumGlobalConfig;
 import cl.camodev.wosbot.console.enumerable.EnumTemplates;
 import cl.camodev.wosbot.console.enumerable.GameVersion;
 import cl.camodev.wosbot.emulator.impl.LDPlayerEmulator;
@@ -56,7 +57,7 @@ public class EmulatorManager {
             throw new IllegalStateException("No emulator configuration found. Ensure initialization is completed.");
         }
 
-        String gameVersionName = globalConfig.getOrDefault(EnumConfigurationKey.GAME_VERSION_STRING.name(), GameVersion.GLOBAL.name());
+        String gameVersionName = globalConfig.getOrDefault(EnumGlobalConfig.GAME_VERSION_STRING.name(), GameVersion.GLOBAL.name());
         try {
             GAME = GameVersion.valueOf(gameVersionName);
             logger.info("Game version set to {}", GAME.name());
@@ -66,11 +67,11 @@ public class EmulatorManager {
         }
 
 
-        String savedActiveEmulator = globalConfig.get(EnumConfigurationKey.CURRENT_EMULATOR_STRING.name());
+        String savedActiveEmulator = globalConfig.get(EnumGlobalConfig.CURRENT_EMULATOR_STRING.name());
         if (savedActiveEmulator == null) {
             throw new IllegalStateException("No active emulator set. Ensure an emulator is selected.");
         }
-        MAX_RUNNING_EMULATORS = Optional.ofNullable(globalConfig.get(EnumConfigurationKey.MAX_RUNNING_EMULATORS_INT.name())).map(Integer::parseInt).orElse(Integer.parseInt(EnumConfigurationKey.MAX_RUNNING_EMULATORS_INT.getDefaultValue()));
+        MAX_RUNNING_EMULATORS = Optional.ofNullable(globalConfig.get(EnumGlobalConfig.MAX_RUNNING_EMULATORS_INT.name())).map(Integer::parseInt).orElse(Integer.parseInt(EnumGlobalConfig.MAX_RUNNING_EMULATORS_INT.getDefaultValue()));
         try {
             EmulatorType emulatorType = EmulatorType.valueOf(savedActiveEmulator);
             String consolePath = globalConfig.get(emulatorType.getConfigKey());

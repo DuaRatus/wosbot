@@ -29,7 +29,7 @@ public class AllianceLayoutController extends AbstractProfileController {
 		checkBoxMappings.put(checkBoxChests, EnumConfigurationKey.ALLIANCE_CHESTS_BOOL);
 		checkBoxMappings.put(checkBoxHonorChest, EnumConfigurationKey.ALLIANCE_HONOR_CHEST_BOOL);
 		checkBoxMappings.put(checkBoxTechContribution, EnumConfigurationKey.ALLIANCE_TECH_BOOL);
-		checkBoxMappings.put(checkBoxHelpRequests, EnumConfigurationKey.ALLIANCE_HELP_BOOL);
+		checkBoxMappings.put(checkBoxHelpRequests, EnumConfigurationKey.ALLIANCE_HELP_REQUESTS_BOOL);
 		checkBoxMappings.put(checkBoxTriumph, EnumConfigurationKey.ALLIANCE_TRIUMPH_BOOL);
 		checkBoxMappings.put(checkBoxAlliesEssence, EnumConfigurationKey.ALLIANCE_LIFE_ESSENCE_BOOL);
 

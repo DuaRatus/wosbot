@@ -43,16 +43,32 @@ public class DTOProfiles {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmulatorNumber() {
         return emulatorNumber;
     }
 
+    public void setEmulatorNumber(String emulatorNumber) {
+        this.emulatorNumber = emulatorNumber;
+    }
+
     public Boolean getEnabled() {
         return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public List<DTOConfig> getConfigs() {
@@ -61,22 +77,6 @@ public class DTOProfiles {
 
     public void setConfigs(List<DTOConfig> configs) {
         this.configs = configs;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmulatorNumber(String emulatorNumber) {
-        this.emulatorNumber = emulatorNumber;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
     }
 
     public void setGlobalSettings(HashMap<String, String> globalsettings) {
@@ -98,7 +98,7 @@ public class DTOProfiles {
         }
         String value = configOptional.map(DTOConfig::getValue).orElse(key.getDefaultValue());
 
-        return key.castValue(value);
+        return key.parseValue(value, clazz);
     }
 
     public <T> void setConfig(EnumConfigurationKey key, T value) {

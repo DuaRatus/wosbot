@@ -14,16 +14,15 @@ import javafx.beans.property.StringProperty;
 
 public class ProfileAux {
 
-	private LongProperty id;
-	private StringProperty name;
-	private StringProperty emulatorNumber;
-	private BooleanProperty enabled;
-	private LongProperty priority;
-	private StringProperty status;
-	private LongProperty reconnectionTime;
+	private final LongProperty id;
+	private final StringProperty name;
+	private final StringProperty emulatorNumber;
+	private final BooleanProperty enabled;
+	private final LongProperty priority;
+	private final StringProperty status;
+	private final LongProperty reconnectionTime;
 
-	private List<ConfigAux> configs = new ArrayList<ConfigAux>();
-
+	private final List<ConfigAux> configs = new ArrayList<>();
 
 	public ProfileAux(Long id, String name, String emulatorNumber, boolean enabled, Long priority, String status, Long reconnectionTime) {
 		this.id = new SimpleLongProperty(id);
@@ -125,15 +124,16 @@ public class ProfileAux {
 		return reconnectionTime;
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> T getConfiguration(EnumConfigurationKey key) {
 		Optional<ConfigAux> config = configs.stream()
 				.filter(c -> c.getName().equals(key.name()))
 				.findFirst();
 
 		if (config.isPresent()) {
-			return key.castValue(config.get().getValue());
+			return (T) key.parseValue(config.get().getValue(), key.getType());
 		} else {
-			return key.castValue(key.getDefaultValue());
+			return (T) key.parseValue(key.getDefaultValue(), key.getType());
 		}
 	}
 
@@ -141,25 +141,21 @@ public class ProfileAux {
 		return configs;
 	}
 
-	public void setConfigs(List<ConfigAux> configs) {
-		this.configs = configs;
-	}
-
 	/**
 	 * Obtiene el valor de una configuración específica utilizando EnumConfigurationKey. Es un método genérico que devuelve el tipo correcto
 	 * basado en la clave.
 	 */
-	public <T> T getConfig(EnumConfigurationKey key, Class<T> clazz) {
+	@SuppressWarnings("unchecked")
+	public <T> T getConfig(EnumConfigurationKey key) {
 		Optional<ConfigAux> configOptional = configs.stream().filter(config -> config.getName().equalsIgnoreCase(key.name())).findFirst();
 
 		if (!configOptional.isPresent()) {
-
 			ConfigAux defaultConfig = new ConfigAux(key.name(), key.getDefaultValue());
 			configs.add(defaultConfig);
 		}
 		String valor = configOptional.map(ConfigAux::getValue).orElse(key.getDefaultValue());
 
-		return key.castValue(valor);
+		return (T) key.parseValue(valor, key.getType());
 	}
 
 	public <T> void setConfig(EnumConfigurationKey key, T value) {

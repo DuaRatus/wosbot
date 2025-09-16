@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import cl.camodev.wosbot.console.enumerable.EnumConfigurationKey;
+import cl.camodev.wosbot.console.enumerable.EnumGlobalConfig;
 import cl.camodev.wosbot.emulator.EmulatorType;
 import cl.camodev.wosbot.console.enumerable.GameVersion;
 import cl.camodev.wosbot.emulator.model.EmulatorAux;
@@ -26,40 +27,31 @@ import javafx.stage.FileChooser;
 
 public class EmuConfigLayoutController {
 
-	@FXML
-	private TableView<EmulatorAux> tableviewEmulators;
-
-	@FXML
-	private TableColumn<EmulatorAux, Boolean> tableColumnActive;
-
-	@FXML
-	private TableColumn<EmulatorAux, String> tableColumnEmulatorName;
-
-	@FXML
-	private TableColumn<EmulatorAux, String> tableColumnEmulatorPath;
-
-	@FXML
-	private TableColumn<EmulatorAux, Void> tableColumnEmulatorAction;
-
-	@FXML
-	private TextField textfieldMaxConcurrentInstances;
-
-	@FXML
-	private TextField textfieldMaxIdleTime;
-
-	@FXML
-	private ComboBox<GameVersion> comboboxGameVersion;
-
 	private final FileChooser fileChooser = new FileChooser();
-
 	// Fixed list of emulators derived from the enum
 	private final ObservableList<EmulatorAux> emulatorList = FXCollections.observableArrayList();
+	@FXML
+	private TableView<EmulatorAux> tableviewEmulators;
+	@FXML
+	private TableColumn<EmulatorAux, Boolean> tableColumnActive;
+	@FXML
+	private TableColumn<EmulatorAux, String> tableColumnEmulatorName;
+	@FXML
+	private TableColumn<EmulatorAux, String> tableColumnEmulatorPath;
+	@FXML
+	private TableColumn<EmulatorAux, Void> tableColumnEmulatorAction;
+	@FXML
+	private TextField textfieldMaxConcurrentInstances;
+	@FXML
+	private TextField textfieldMaxIdleTime;
+	@FXML
+	private ComboBox<GameVersion> comboboxGameVersion;
 
 	public void initialize() {
 
 		HashMap<String, String> globalConfig = ServConfig.getServices().getGlobalConfig();
 
-		String currentEmulator = globalConfig.get(EnumConfigurationKey.CURRENT_EMULATOR_STRING.name());
+		String currentEmulator = globalConfig.get(EnumGlobalConfig.CURRENT_EMULATOR_STRING.name());
 
 		for (EmulatorType type : EmulatorType.values()) {
 			String defaultPath = globalConfig.getOrDefault(type.getConfigKey(), "");
@@ -135,11 +127,11 @@ public class EmuConfigLayoutController {
 		// Assign the fixed list to the TableView
 		tableviewEmulators.setItems(emulatorList);
 
-		textfieldMaxConcurrentInstances.setText(globalConfig.getOrDefault(EnumConfigurationKey.MAX_RUNNING_EMULATORS_INT.name(), "1"));
-		textfieldMaxIdleTime.setText(globalConfig.getOrDefault(EnumConfigurationKey.MAX_IDLE_TIME_INT.name(), "15"));
+		textfieldMaxConcurrentInstances.setText(globalConfig.getOrDefault(EnumGlobalConfig.MAX_RUNNING_EMULATORS_INT.name(), "1"));
+		textfieldMaxIdleTime.setText(globalConfig.getOrDefault(EnumGlobalConfig.MAX_IDLE_TIME_INT.name(), "15"));
 
 		comboboxGameVersion.setItems(FXCollections.observableArrayList(GameVersion.values()));
-		String gameVersionName = globalConfig.getOrDefault(EnumConfigurationKey.GAME_VERSION_STRING.name(), GameVersion.GLOBAL.name());
+		String gameVersionName = globalConfig.getOrDefault(EnumGlobalConfig.GAME_VERSION_STRING.name(), GameVersion.GLOBAL.name());
 		comboboxGameVersion.setValue(GameVersion.valueOf(gameVersionName));
 	}
 
@@ -178,12 +170,12 @@ public class EmuConfigLayoutController {
 
 		GameVersion selectedGameVersion = comboboxGameVersion.getValue();
 		if (selectedGameVersion != null) {
-			ServScheduler.getServices().saveEmulatorPath(EnumConfigurationKey.GAME_VERSION_STRING.name(), selectedGameVersion.name());
+			ServScheduler.getServices().saveEmulatorPath(EnumGlobalConfig.GAME_VERSION_STRING.name(), selectedGameVersion.name());
 		}
 
-		ServScheduler.getServices().saveEmulatorPath(EnumConfigurationKey.MAX_IDLE_TIME_INT.name(), maxIdleTime);
-		ServScheduler.getServices().saveEmulatorPath(EnumConfigurationKey.MAX_RUNNING_EMULATORS_INT.name(), maxInstances);
-		ServScheduler.getServices().saveEmulatorPath(EnumConfigurationKey.CURRENT_EMULATOR_STRING.name(), activeEmulatorName);
+		ServScheduler.getServices().saveEmulatorPath(EnumGlobalConfig.MAX_IDLE_TIME_INT.name(), maxIdleTime);
+		ServScheduler.getServices().saveEmulatorPath(EnumGlobalConfig.MAX_RUNNING_EMULATORS_INT.name(), maxInstances);
+		ServScheduler.getServices().saveEmulatorPath(EnumGlobalConfig.CURRENT_EMULATOR_STRING.name(), activeEmulatorName);
 		showInfo("Config saved successfully");
 	}
 
