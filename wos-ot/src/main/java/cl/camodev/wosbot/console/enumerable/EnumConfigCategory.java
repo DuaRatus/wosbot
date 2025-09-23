@@ -13,7 +13,8 @@ public enum EnumConfigCategory {
     TRAINING(       "Training",         "Target",     "Troop training related settings"),
     PETS(           "Pets ",            "Bone",         "Pet related settings"),
     EVENTS(        "Events",           "Calendar",         "Special event related settings"),
-    EXPERTS(        "Experts",          "UserTie",         "Expert related settings"),;
+    EXPERTS(        "Experts",          "UserTie",         "Expert related settings"),
+    CHIEF_ORDERS(  "Chief Orders",    "Clipboard",         "Chief order related settings"),;
 
 
 
@@ -41,4 +42,3 @@ public enum EnumConfigCategory {
         return (long) (ordinal() + 1);
     }
 }
-

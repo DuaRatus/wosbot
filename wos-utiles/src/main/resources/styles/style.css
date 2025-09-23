@@ -55,14 +55,14 @@
 .radio-button {
 	-fx-font-size: 14px; /* Tamaño del texto */
 	-fx-font-weight: bold; /* Negrita */
-	-fx-text-fill: #ffa500; /* Color naranja para el texto */
+	-fx-text-fill: #fbd075; /* Color naranja para el texto */
 	-fx-padding: 5 10; /* Espaciado */
 }
 
 /* Personalizar la caja del RadioButton */
 .radio-button .radio {
 	-fx-background-color: transparent;
-	-fx-border-color: #ffa500; /* Borde naranja */
+	-fx-border-color: #fbd075; /* Borde naranja */
 	-fx-border-width: 2; /* Grosor del borde */
 	-fx-border-radius: 50%; /* Bordes redondeados para un círculo */
 	-fx-min-width: 18px;
@@ -78,7 +78,7 @@
 
 /* Estilo cuando el RadioButton está seleccionado */
 .radio-button:selected .radio {
-	-fx-background-color: #ffa500; /* Fondo naranja al seleccionar */
+	-fx-background-color: #fbd075; /* Fondo naranja al seleccionar */
 	-fx-border-color: #ff6d00; /* Borde más oscuro */
 }
 
@@ -164,7 +164,7 @@
 .label {
 	-fx-font-size: 14px; /* Tamaño de fuente */
 	-fx-font-weight: bold; /* Negrita */
-	-fx-text-fill: #ffa500; /* Color de texto naranja */
+	-fx-text-fill: #fbd075; /* Color de texto naranja */
 	-fx-padding: 5 10; /* Relleno interno */
 }
 
@@ -204,14 +204,14 @@
 .check-box {
 	-fx-font-size: 14px; /* Tamaño del texto */
 	-fx-font-weight: bold; /* Negrita */
-	-fx-text-fill: #ffa500; /* Color naranja para el texto */
+	-fx-text-fill: #fbd075; /* Color naranja para el texto */
 	-fx-padding: 5 10; /* Espaciado */
 }
 
 /* Personalizar la caja del CheckBox */
 .check-box .box {
 	-fx-background-color: transparent;
-	-fx-border-color: #ffa500; /* Borde naranja */
+	-fx-border-color: #fbd075; /* Borde naranja */
 	-fx-border-width: 2; /* Grosor del borde */
 	-fx-border-radius: 3; /* Bordes redondeados */
 	-fx-min-width: 18px;
@@ -227,7 +227,7 @@
 
 /* Estilo cuando el CheckBox está seleccionado */
 .check-box:selected .box {
-	-fx-background-color: #ffa500; /* Fondo naranja al seleccionar */
+	-fx-background-color: #fbd075; /* Fondo naranja al seleccionar */
 	-fx-border-color: #ff6d00; /* Borde más oscuro */
 }
 
@@ -268,7 +268,7 @@
 /* Estilo base para la TableView */
 .table-view {
 	-fx-background-color: #2a2a3d; /* Fondo oscuro */
-	-fx-border-color: #ffa500; /* Borde naranja */
+	-fx-border-color: #fbd075; /* Borde naranja */
 	-fx-border-width: 2px;
 	-fx-padding: 5;
 	-fx-background-radius: 5;
@@ -323,7 +323,7 @@
 
 /* Fila seleccionada */
 .table-row-cell:selected {
-	-fx-background-color: #ffa500; /* Naranja */
+	-fx-background-color: #fbd075; /* Naranja */
 	-fx-text-fill: black;
 	-fx-font-weight: bold;
 }
@@ -334,7 +334,7 @@
 }
 
 .table-view .scroll-bar .thumb {
-	-fx-background-color: #ffa500; /* Color del scroll */
+	-fx-background-color: #fbd075; /* Color del scroll */
 	-fx-background-radius: 5;
 }
 
@@ -384,7 +384,7 @@
 .form-label {
 	-fx-font-size: 14px;
 	-fx-font-weight: bold;
-	-fx-text-fill: #ffa500; /* Naranja */
+	-fx-text-fill: #fbd075; /* Naranja */
 }
 
 /* Campos de texto */
@@ -395,7 +395,7 @@
 	-fx-padding: 8;
 	-fx-border-radius: 4;
 	-fx-background-radius: 4;
-	-fx-border-color: #ffa500; /* Borde naranja */
+	-fx-border-color: #fbd075; /* Borde naranja */
 	-fx-pref-width: 60%;
 	/* El ancho por defecto será un 60% del contenedor padre */
 	-fx-min-width: 200px; /* Ancho mínimo */
@@ -466,3 +466,174 @@
     -fx-text-fill: #ff5722 !important;
     -fx-font-size: 14px;
 }
+
+/* Estilos para la interfaz de tarjetas de CityEventsLayout */
+
+/* Estilo para el ScrollPane (panel de fondo) */
+.scroll-pane {
+    -fx-background-color: #0e0e1a;
+    -fx-background: #0e0e1a;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #0e0e1a;
+}
+
+.scroll-pane > .scroll-bar {
+    -fx-background-color: #16161e;
+}
+
+.scroll-pane > .scroll-bar > .thumb {
+    -fx-background-color: #fbd075;
+    -fx-background-radius: 0;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: #0e0e1a;
+}
+
+/* Estilo para el contenedor principal dentro del ScrollPane */
+.main-container {
+    -fx-background-color: #0e0e1a;
+    -fx-spacing: 8;
+    -fx-padding: 10;
+}
+
+/* Estilos para los TitledPane (categorías) */
+.titled-pane {
+    -fx-animated: true;
+    -fx-collapsible: true;
+}
+
+.titled-pane > .title {
+    -fx-background-color: #16161e;
+    -fx-text-fill: white;
+    -fx-padding: 5 10 5 10;
+    -fx-background-radius: 0;
+}
+
+.titled-pane > .title > .arrow-button .arrow {
+    -fx-background-color: #fbd075;
+}
+
+.titled-pane > .content {
+    -fx-background-color: #0e0e1a;
+    -fx-border-color: #222;
+    -fx-border-width: 0 1 1 1;
+    -fx-padding: 5;
+}
+
+/* Estilos para los checkboxes padre en el título */
+.parent-checkbox {
+    -fx-text-fill: white;
+    -fx-font-weight: normal;
+}
+
+.parent-checkbox .box {
+    -fx-background-color: transparent;
+    -fx-border-color: #fbd075;
+    -fx-border-radius: 0;
+}
+
+.parent-checkbox:selected .box {
+    -fx-background-color: #fbd075;
+}
+
+.parent-checkbox:selected .mark {
+    -fx-background-color: #0e0e1a;
+}
+
+/* Estilos para las tarjetas de elementos hijo */
+.child-card {
+    -fx-background-color: #16161e;
+    -fx-background-radius: 0;
+    -fx-border-color: #222;
+    -fx-border-width: 1;
+    -fx-border-radius: 0;
+    -fx-padding: 8 10;
+}
+
+.child-card:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(251,208,117,0.3), 5, 0, 0, 0);
+    -fx-background-color: #1c1c24;
+}
+
+/* Estilos para los checkboxes hijo */
+.child-checkbox {
+    -fx-font-weight: normal;
+    -fx-text-fill: white;
+}
+
+.child-checkbox .box {
+    -fx-background-color: transparent;
+    -fx-border-color: #fbd075;
+    -fx-border-radius: 0;
+}
+
+.child-checkbox:selected .box {
+    -fx-background-color: #fbd075;
+}
+
+.child-checkbox:selected .mark {
+    -fx-background-color: #0e0e1a;
+}
+
+/* Estilos para las etiquetas de descripción */
+.description-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #999999;
+    -fx-font-style: italic;
+    -fx-wrap-text: true;
+    -fx-padding: 0 0 0 5;
+}
+
+/* Estilos para contenedores horizontales */
+.control-container {
+    -fx-spacing: 5;
+    -fx-alignment: center-left;
+}
+
+/* Estilo para el mensaje de "No additional config" */
+.no-config-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #999999;
+    -fx-font-style: italic;
+    -fx-padding: 10 5 5 15;
+    -fx-alignment: center;
+}
+
+/* Estilo para TextFields y ComboBoxes */
+.text-field {
+    -fx-background-color: #0e0e1a;
+    -fx-text-fill: white;
+    -fx-border-color: #333;
+    -fx-border-radius: 0;
+}
+
+.combo-box {
+    -fx-background-color: #0e0e1a;
+    -fx-border-color: #333;
+    -fx-border-radius: 0;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #0e0e1a;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #16161e;
+    -fx-border-color: #333;
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: #16161e;
+    -fx-text-fill: white;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #fbd075;
+    -fx-text-fill: black;
+}
+
