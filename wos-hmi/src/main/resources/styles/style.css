@@ -29,7 +29,7 @@
     -fx-text-fill: white;          /* inactive text color */
     -fx-background-radius: 8;      /* rounded corners */
     -fx-background-insets: 0;
-    -fx-padding: 8 12 8 12;        /* top right bottom left */
+    -fx-padding: 8 12 8 12;        /* top right bottom left */ /* vertical spacing between buttons */
     -fx-alignment: CENTER_LEFT;    /* left align text/content */
     -fx-cursor: hand;
     -fx-focus-color: transparent;      /* remove default focus ring color */
@@ -93,6 +93,7 @@
     -fx-background-color: #11101C;
     -fx-border-color: #20202D transparent transparent transparent; /* top border only */
     -fx-border-width: 1 0 0 0; /* 1px top */
+    -fx-padding: 6 20; /* top/bottom 6px, left/right 20px */
 }
 
 /* Bottom bar text color for labels */
@@ -309,7 +310,8 @@
     -fx-border-width: 1;
     -fx-border-radius: 6;
     -fx-text-fill: white;
-    -fx-mark-color: white; /* color de la flecha */
+    -fx-mark-color: white;
+    
 }
 .combo-box.combo-dark > .list-cell {
     -fx-text-fill: white;
@@ -532,4 +534,3 @@
 }
 
 /*!* --- Events/cards theming --- *!*/
-

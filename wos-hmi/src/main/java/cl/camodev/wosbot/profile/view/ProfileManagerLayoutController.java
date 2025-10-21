@@ -62,6 +62,8 @@ public class ProfileManagerLayoutController implements IProfileChangeObserver {
 	private TableColumn<ProfileAux, String> columnStatus;
 	@FXML
 	private Button btnBulkUpdate;
+	@FXML
+	private Button btnAddProfile;
 	private Long loadedProfileId;
 	private List<IProfileLoadListener> profileLoadListeners;
 

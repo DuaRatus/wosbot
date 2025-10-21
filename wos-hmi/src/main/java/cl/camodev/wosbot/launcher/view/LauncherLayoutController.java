@@ -5,13 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Supplier;
 import cl.camodev.utiles.ImageSearchUtil;
 import cl.camodev.wosbot.alliance.view.AllianceLayoutController;
@@ -65,6 +59,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import cl.camodev.wosbot.alliance.view.AllianceShopController;
 import javafx.geometry.NodeOrientation;
+import javafx.geometry.Insets;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -324,7 +319,7 @@ public class LauncherLayoutController implements IProfileLoadListener, IStaminaC
     private void initializeLogModule() {
         actionController = new LauncherActionController(this);
         consoleLogLayoutController = new ConsoleLogLayoutController();
-        addButton("ConsoleLogLayout", "Logs", consoleLogLayoutController).fire();
+        Objects.requireNonNull(addButton("ConsoleLogLayout", "Logs", consoleLogLayoutController)).fire();
     }
 
     private void initializeProfileModule() {
@@ -351,15 +346,9 @@ public class LauncherLayoutController implements IProfileLoadListener, IStaminaC
 
 
         if (profileManagerLayoutController != null) {
-            profileManagerLayoutController.addProfileLoadListener(new IProfileLoadListener() {
-                @Override
-                public void onProfileLoad(ProfileAux profile) {
-
-                    Platform.runLater(() -> {
-                        actionController.updateProfileComboBox();
-                    });
-                }
-            });
+            profileManagerLayoutController.addProfileLoadListener(profile -> Platform.runLater(() -> {
+                actionController.updateProfileComboBox();
+            }));
         }
 
 
@@ -849,6 +838,8 @@ public class LauncherLayoutController implements IProfileLoadListener, IStaminaC
                 button.getStyleClass().add("active");
             });
 
+            // Add horizontal margin (left/right = 10px) so every lateral menu button keeps consistent spacing
+            VBox.setMargin(button, new Insets(10, 10, 0, 10));
             buttonsContainer.getChildren().add(button);
             return button;
         } catch (IOException e) {

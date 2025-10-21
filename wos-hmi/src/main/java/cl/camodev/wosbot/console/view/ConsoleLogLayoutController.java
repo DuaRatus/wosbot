@@ -77,7 +77,6 @@ public class ConsoleLogLayoutController implements IProfileDataChangeListener {
 		logMessages = FXCollections.observableArrayList();
 		filteredLogMessages = new FilteredList<>(logMessages);
 
-        // asegurar estilo de la tabla por código
         if (tableviewLogMessages != null) {
             tableviewLogMessages.getStyleClass().add("wos-table");
             tableviewLogMessages.getStyleClass().add("flat-bottom");

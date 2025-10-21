@@ -3,8 +3,12 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="306.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="306.0" prefWidth="585.0" stylesheets="@../../../../../styles/style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+  </padding>
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -13,35 +17,41 @@
       <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TableView fx:id="tableviewLogMessages" styleClass="wos-table" prefHeight="200.0" prefWidth="200.0">
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
+      <!-- Aplicar estilo de tabla de consola y footer tipo console -->
+      <TableView fx:id="tableviewLogMessages" prefHeight="200.0" prefWidth="200.0" styleClass="wos-table,flat-bottom">
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <columns>
-            <TableColumn fx:id="columnEnabled" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" resizable="false" text="ENABLED" style="-fx-alignment: CENTER;" />
-            <TableColumn fx:id="columnEmulatorNumber" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" text="ID" style="-fx-alignment: CENTER;" />
-            <TableColumn fx:id="columnProfileName" maxWidth="1.7976931348623157E308" prefWidth="204.0" text="NAME" style="-fx-alignment: CENTER;" />
-            <TableColumn fx:id="columnPriority" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" resizable="false" text="PRIORITY" style="-fx-alignment: CENTER;" />
-            <TableColumn fx:id="columnStatus" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" resizable="false" text="STATUS" style="-fx-alignment: CENTER;" />
-            <TableColumn fx:id="columnDelete" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" resizable="false" text="ACTIONS" style="-fx-alignment: CENTER;" />
+            <TableColumn fx:id="columnEnabled" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" resizable="false" style="-fx-alignment: CENTER;" text="ENABLED" />
+            <TableColumn fx:id="columnEmulatorNumber" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" style="-fx-alignment: CENTER;" text="ID" />
+            <TableColumn fx:id="columnProfileName" maxWidth="1.7976931348623157E308" prefWidth="204.0" style="-fx-alignment: CENTER;" text="NAME" />
+            <TableColumn fx:id="columnPriority" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" resizable="false" style="-fx-alignment: CENTER;" text="PRIORITY" />
+            <TableColumn fx:id="columnStatus" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" resizable="false" style="-fx-alignment: CENTER;" text="STATUS" />
+            <TableColumn fx:id="columnDelete" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" resizable="false" style="-fx-alignment: CENTER;" text="ACTIONS" />
          </columns>
       </TableView>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" styleClass="console-footer" GridPane.rowIndex="1">
          <children>
-            <Button fx:id="btnBulkUpdate" mnemonicParsing="false" onAction="#handleButtonBulkUpdateProfiles" text="BULK UPDATE PROFILES">
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="btnAddProfile" mnemonicParsing="false" onAction="#handleButtonAddProfile" text="ADD PROFILE">
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-      </HBox>
-   </children>
-</GridPane>
+            <!-- Espaciador para empujar botones a la derecha como en la consola -->
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnBulkUpdate" mnemonicParsing="false" onAction="#handleButtonBulkUpdateProfiles" styleClass="btn-open-folder" text="Bulk Update">
+               <graphic>
+                  <SVGPath content="M4 4 H16 V12 H4 Z M6 6 H14 M8 9 H10" styleClass="icon-outline" />
+               </graphic>
+                <HBox.margin>
+                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                </HBox.margin>
+             </Button>
+             <Button fx:id="btnAddProfile" mnemonicParsing="false" onAction="#handleButtonAddProfile" styleClass="start-button" text="Add Profile">
+               <graphic>
+                  <SVGPath content="M8 2 L8 14 M2 8 L14 8" style="-fx-stroke: black; -fx-fill: transparent; -fx-stroke-width:1;" />
+               </graphic>
+                <HBox.margin>
+                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                </HBox.margin>
+             </Button>
+          </children>
+       </HBox>
+    </children>
+ </GridPane>
