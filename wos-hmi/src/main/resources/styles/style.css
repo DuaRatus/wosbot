@@ -334,11 +334,19 @@
     -fx-background-color: transparent;
 }
 .combo-box-popup > .list-view .list-cell:hover {
-    -fx-background-color: #151421;
-}
-.combo-box-popup > .list-view .list-cell:selected {
-    -fx-background-color: transparent; /* sin resalte de selección */
+    -fx-background-color: #1F1D2B;
     -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent transparent transparent #FCD176;
+    -fx-border-width: 0 0 0 4px;
+}
+
+.combo-box-popup > .list-view .list-cell:focused {
+    -fx-background-color: #1F1D2B;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent transparent transparent #FCD176;
+    -fx-border-width: 0 0 0 4px;
 }
 
 /* --- Botón Reset icon-only --- */
@@ -556,5 +564,3 @@
 .table-view.wos-table .scroll-bar:horizontal .thumb:hover {
     -fx-background-color: #FFD88E; /* lighter yellow on hover */
 }
-
-/*!* --- Events/cards theming --- *!*/
