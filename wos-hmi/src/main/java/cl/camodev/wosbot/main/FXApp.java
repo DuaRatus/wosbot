@@ -48,6 +48,9 @@ public class FXApp extends Application {
     private ResizeDirection resizeDirection = ResizeDirection.NONE;
     private double resizeStartX, resizeStartY, resizeStartWidth, resizeStartHeight;
 
+    // Stage para la vista previa del snap
+    private Stage previewStage;
+
     private enum SnapPosition {
         NONE, MAXIMIZE, LEFT, RIGHT, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
     }
@@ -106,6 +109,9 @@ public class FXApp extends Application {
         stage.setMinHeight(500);
         stage.setMinWidth(700);
 
+        // Crear la ventana de vista previa
+        createPreviewStage();
+
         // Mostrar la ventana primero para que JavaFX calcule los tamaños correctamente
         stage.show();
 
@@ -137,6 +143,11 @@ public class FXApp extends Application {
             prefs.putDouble(KEY_W, stage.getWidth());
             prefs.putDouble(KEY_H, stage.getHeight());
 
+            // Cerrar la ventana de vista previa
+            if (previewStage != null) {
+                previewStage.close();
+            }
+
             // Kill adb.exe process
             try {
                 new ProcessBuilder("taskkill", "/F", "/IM", "adb.exe").start();
@@ -147,6 +158,108 @@ public class FXApp extends Application {
 
             System.exit(0);
         });
+    }
+
+    /**
+     * Crea el Stage para mostrar la vista previa del snap
+     */
+    private void createPreviewStage() {
+        previewStage = new Stage();
+        previewStage.initStyle(StageStyle.TRANSPARENT);
+        previewStage.setAlwaysOnTop(true);
+
+        // Crear un borde semi-transparente
+        StackPane previewPane = new StackPane();
+        previewPane.setStyle(
+                "-fx-background-color: rgba(100, 150, 255, 0.3);" +
+                        "-fx-border-color: rgba(100, 150, 255, 0.8);" +
+                        "-fx-border-width: 2px;"
+        );
+
+        Scene previewScene = new Scene(previewPane);
+        previewScene.setFill(Color.TRANSPARENT);
+        previewStage.setScene(previewScene);
+    }
+
+    /**
+     * Muestra la vista previa del snap en la posición especificada
+     */
+    private void showSnapPreview(Rectangle2D bounds) {
+        if (previewStage != null) {
+            previewStage.setX(bounds.getMinX());
+            previewStage.setY(bounds.getMinY());
+            previewStage.setWidth(bounds.getWidth());
+            previewStage.setHeight(bounds.getHeight());
+
+            if (!previewStage.isShowing()) {
+                previewStage.show();
+            }
+        }
+    }
+
+    /**
+     * Oculta la vista previa del snap
+     */
+    private void hideSnapPreview() {
+        if (previewStage != null && previewStage.isShowing()) {
+            previewStage.hide();
+        }
+    }
+
+    /**
+     * Calcula los bounds para una posición de snap
+     */
+    private Rectangle2D getSnapBounds(Screen screen, SnapPosition position) {
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        switch (position) {
+            case MAXIMIZE:
+                return bounds;
+            case LEFT:
+                return new Rectangle2D(
+                        bounds.getMinX(),
+                        bounds.getMinY(),
+                        bounds.getWidth() / 2,
+                        bounds.getHeight()
+                );
+            case RIGHT:
+                return new Rectangle2D(
+                        bounds.getMinX() + bounds.getWidth() / 2,
+                        bounds.getMinY(),
+                        bounds.getWidth() / 2,
+                        bounds.getHeight()
+                );
+            case TOP_LEFT:
+                return new Rectangle2D(
+                        bounds.getMinX(),
+                        bounds.getMinY(),
+                        bounds.getWidth() / 2,
+                        bounds.getHeight() / 2
+                );
+            case TOP_RIGHT:
+                return new Rectangle2D(
+                        bounds.getMinX() + bounds.getWidth() / 2,
+                        bounds.getMinY(),
+                        bounds.getWidth() / 2,
+                        bounds.getHeight() / 2
+                );
+            case BOTTOM_LEFT:
+                return new Rectangle2D(
+                        bounds.getMinX(),
+                        bounds.getMinY() + bounds.getHeight() / 2,
+                        bounds.getWidth() / 2,
+                        bounds.getHeight() / 2
+                );
+            case BOTTOM_RIGHT:
+                return new Rectangle2D(
+                        bounds.getMinX() + bounds.getWidth() / 2,
+                        bounds.getMinY() + bounds.getHeight() / 2,
+                        bounds.getWidth() / 2,
+                        bounds.getHeight() / 2
+                );
+            default:
+                return null;
+        }
     }
 
     /**
@@ -327,17 +440,24 @@ public class FXApp extends Application {
 
             // Si estaba maximizada o snapped, restaurar al empezar a arrastrar
             if (maximized || snapped) {
-                // Calcular nueva posición proporcional
-                double mouseXRatio = event.getScreenX() / stage.getWidth();
-                prevWidth = DEFAULT_W;
-                prevHeight = DEFAULT_H;
+                // Calcular nueva posición proporcional basada en donde se maximizó
+                double mouseXRatio = event.getSceneX() / stage.getWidth();
+
+                // Restaurar tamaño previo
                 stage.setWidth(prevWidth);
                 stage.setHeight(prevHeight);
+
+                // Posicionar la ventana bajo el cursor
+                stage.setX(event.getScreenX() - prevWidth * mouseXRatio);
+                stage.setY(event.getScreenY() - yOffset);
+
+                // Actualizar offset para el arrastre suave
                 xOffset = prevWidth * mouseXRatio;
+
                 maximized = false;
                 snapped = false;
                 snapPosition = SnapPosition.NONE;
-                maximizeBtn.setGraphic(createSVGIcon(maximizeSVG)); // Actualizar ícono
+                maximizeBtn.setGraphic(createSVGIcon(maximizeSVG));
             }
         });
 
@@ -350,11 +470,25 @@ public class FXApp extends Application {
 
                 // Detectar posición para snap
                 checkSnapPosition(stage, event.getScreenX(), event.getScreenY());
+
+                // Mostrar vista previa si hay una posición de snap detectada
+                if (snapPosition != SnapPosition.NONE) {
+                    Screen currentScreen = getScreenAtPosition(event.getScreenX(), event.getScreenY());
+                    Rectangle2D previewBounds = getSnapBounds(currentScreen, snapPosition);
+                    if (previewBounds != null) {
+                        showSnapPreview(previewBounds);
+                    }
+                } else {
+                    hideSnapPreview();
+                }
             }
         });
 
         titleBar.setOnMouseReleased(event -> {
             if (isResizing) return;
+
+            // Ocultar vista previa
+            hideSnapPreview();
 
             // Aplicar snap al soltar
             if (snapPosition != SnapPosition.NONE) {
@@ -392,8 +526,8 @@ public class FXApp extends Application {
         HBox windowButtons = new HBox(1);
         windowButtons.setAlignment(Pos.CENTER_RIGHT);
 
-        // SVG paths para los iconos (usando rectángulos en lugar de líneas para mejor visibilidad)
-        String minimizeSVG = "M 1,6 H 11";  // Identificador para minimize
+        // SVG paths para los iconos
+        String minimizeSVG = "M 1,6 H 11";
         String closeSVG = "M 1.576,1 L 6,5.417 L 10.424,1 L 11,1.576 L 6.583,6 L 11,10.424 L 10.424,11 L 6,6.583 L 1.576,11 L 1,10.424 L 5.417,6 L 1,1.576 Z";
 
         Button minimizeBtn = createWindowButton(minimizeSVG, "#1e1e1e", "#3c3c3c");
@@ -626,7 +760,7 @@ public class FXApp extends Application {
             maximized = true;
             snapped = false;
         } else {
-            // Restaurar
+            // Restaurar a la posición y tamaño previos
             stage.setX(prevX);
             stage.setY(prevY);
             stage.setWidth(prevWidth);
