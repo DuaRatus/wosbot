@@ -7,7 +7,6 @@ import java.util.concurrent.CompletableFuture;
 
 import cl.camodev.wosbot.console.enumerable.EnumConfigurationKey;
 import cl.camodev.wosbot.console.enumerable.EnumTpMessageSeverity;
-import cl.camodev.wosbot.launcher.view.ILauncherConstants;
 import cl.camodev.wosbot.ot.DTOConfig;
 import cl.camodev.wosbot.ot.DTOProfileStatus;
 import cl.camodev.wosbot.ot.DTOProfiles;
@@ -149,8 +148,6 @@ public class ProfileManagerActionController implements IProfileStatusChangeListe
 
 			Parent root = loader.load();
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(ILauncherConstants.getCssPath());
-
 			newProfileStage = new Stage();
 			newProfileStage.setTitle("New Profile");
 			newProfileStage.setScene(scene);
@@ -219,8 +216,6 @@ public class ProfileManagerActionController implements IProfileStatusChangeListe
 
 			// Create scene and apply CSS
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(ILauncherConstants.getCssPath());
-
 			dialogStage.setScene(scene);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(ownerNode.getScene().getWindow());
@@ -287,8 +282,6 @@ public class ProfileManagerActionController implements IProfileStatusChangeListe
 
 			// Create scene and apply CSS
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(ILauncherConstants.getCssPath());
-
 			dialogStage.setScene(scene);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(ownerNode.getScene().getWindow());

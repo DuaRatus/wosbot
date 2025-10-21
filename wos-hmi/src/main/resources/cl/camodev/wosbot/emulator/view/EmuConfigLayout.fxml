@@ -20,7 +20,7 @@
         <RowConstraints fillHeight="false" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
         <RowConstraints fillHeight="false" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
     </rowConstraints>
-   <TableView fx:id="tableviewEmulators" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+   <TableView fx:id="tableviewEmulators" styleClass="wos-table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
      <columns>
        <TableColumn fx:id="tableColumnActive" maxWidth="80.0" minWidth="80.0" text="ACTIVE" />
        <TableColumn fx:id="tableColumnEmulatorName" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="EMULATOR" />

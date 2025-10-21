@@ -283,7 +283,7 @@ public class TaskManagerLayoutController implements IProfileDataChangeListener {
 
 	private TableView<TaskManagerAux> createTaskTable() {
 		TableView<TaskManagerAux> table = new TableView<>();
-		table.getStyleClass().add("table-view");
+		table.getStyleClass().add("wos-table");
 
 
 		// Task Name column

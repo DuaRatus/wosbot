@@ -7,69 +7,66 @@
     <children>
         <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
             <content>
-                <VBox spacing="14" style="-fx-background-color: #1f1f1f; -fx-background-radius: 8; -fx-padding: 18;" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                <VBox spacing="14" styleClass="events-content" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                     <children>
                         <!-- Pets Section -->
-                        <VBox spacing="0" style="-fx-background-color: #242424; -fx-background-radius: 8;" VBox.vgrow="ALWAYS" maxHeight="1.7976931348623157E308">
+                        <VBox spacing="0" styleClass="card" VBox.vgrow="ALWAYS" maxHeight="1.7976931348623157E308">
                             <children>
                                 <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: linear-gradient(#4dd0e1, #0097a7); -fx-background-radius: 8 8 0 0; -fx-padding: 8 12;">
                                     <children>
                                         <Label style="-fx-font-weight: bold; -fx-text-fill: #1c1c1c;" text="Pet Management" />
                                     </children>
                                 </HBox>
-                                <VBox spacing="10" style="-fx-padding: 12;" VBox.vgrow="ALWAYS" maxHeight="1.7976931348623157E308">
+                                <VBox spacing="8" styleClass="card-body" VBox.vgrow="ALWAYS" maxHeight="1.7976931348623157E308">
                                     <children>
                                         <Label style="-fx-font-size: 10px; -fx-text-fill: #b5b5b5;" text="Automates pet-related tasks and skill activation" wrapText="true" />
 
                                         <Separator style="-fx-opacity: 0.3; -fx-padding: 4 0;" />
 
-                                        <!-- Main Configuration Area - uses all available space -->
-                                        <VBox spacing="15" VBox.vgrow="ALWAYS" maxHeight="1.7976931348623157E308">
+                                        <!-- Pet Treasures Section -->
+                                        <VBox spacing="8" styleClass="priority-section">
                                             <children>
-                                                <!-- Treasures Section -->
-                                                <VBox spacing="10" style="-fx-background-color: #2a2a2a; -fx-background-radius: 4; -fx-padding: 10;">
+                                                <Label style="-fx-text-fill: #b5b5b5; -fx-font-weight: bold;" text="Pet Treasures" />
+
+                                                <GridPane hgap="20" vgap="10">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints percentWidth="50" />
+                                                        <ColumnConstraints percentWidth="50" />
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints />
+                                                    </rowConstraints>
                                                     <children>
-                                                        <Label style="-fx-text-fill: #e5e5e5; -fx-font-weight: bold;" text="Pet Treasures" />
-
-                                                        <GridPane hgap="20" vgap="10">
-                                                            <columnConstraints>
-                                                                <ColumnConstraints percentWidth="50" />
-                                                                <ColumnConstraints percentWidth="50" />
-                                                            </columnConstraints>
-                                                            <rowConstraints>
-                                                                <RowConstraints />
-                                                            </rowConstraints>
-                                                            <children>
-                                                                <CheckBox fx:id="checkBoxPetAllianceTreasure" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Alliance Treasures" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                                                <CheckBox fx:id="checkBoxPetPersonalTreasure" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Personal Treasures" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                                            </children>
-                                                        </GridPane>
+                                                        <CheckBox fx:id="checkBoxPetAllianceTreasure" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Alliance Treasures" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                                        <CheckBox fx:id="checkBoxPetPersonalTreasure" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Personal Treasures" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                                     </children>
-                                                </VBox>
+                                                </GridPane>
+                                            </children>
+                                        </VBox>
 
-                                                <!-- Pet Skills Section -->
-                                                <VBox spacing="10" style="-fx-background-color: #2a2a2a; -fx-background-radius: 4; -fx-padding: 10;">
+                                        <Separator style="-fx-opacity: 0.3; -fx-padding: 4 0;" />
+
+                                        <!-- Pet Skills Section -->
+                                        <VBox spacing="8" styleClass="priority-section">
+                                            <children>
+                                                <Label style="-fx-text-fill: #b5b5b5; -fx-font-weight: bold;" text="Pet Skills" />
+
+                                                <GridPane hgap="20" vgap="10">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints percentWidth="50" />
+                                                        <ColumnConstraints percentWidth="50" />
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints />
+                                                        <RowConstraints />
+                                                    </rowConstraints>
                                                     <children>
-                                                        <Label style="-fx-text-fill: #e5e5e5; -fx-font-weight: bold;" text="Pet Skills" />
-
-                                                        <GridPane hgap="20" vgap="10">
-                                                            <columnConstraints>
-                                                                <ColumnConstraints percentWidth="50" />
-                                                                <ColumnConstraints percentWidth="50" />
-                                                            </columnConstraints>
-                                                            <rowConstraints>
-                                                                <RowConstraints />
-                                                                <RowConstraints />
-                                                            </rowConstraints>
-                                                            <children>
-                                                                <CheckBox fx:id="checkboxStaminaSkill" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Stamina Skill" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                                                <CheckBox fx:id="checkboxFoodSkill" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Food Skill" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                                                <CheckBox fx:id="checkboxTreasureSkill" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Treasure Skill" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                                                <CheckBox fx:id="checkboxGatheringSkill" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Gathering Skill" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                            </children>
-                                                        </GridPane>
+                                                        <CheckBox fx:id="checkboxStaminaSkill" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Stamina Skill" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                                        <CheckBox fx:id="checkboxFoodSkill" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Food Skill" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                                        <CheckBox fx:id="checkboxTreasureSkill" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Treasure Skill" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                                        <CheckBox fx:id="checkboxGatheringSkill" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Gathering Skill" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                     </children>
-                                                </VBox>
+                                                </GridPane>
                                             </children>
                                         </VBox>
                                     </children>

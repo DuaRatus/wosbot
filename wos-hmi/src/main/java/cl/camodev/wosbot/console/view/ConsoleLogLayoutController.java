@@ -77,14 +77,33 @@ public class ConsoleLogLayoutController implements IProfileDataChangeListener {
 		logMessages = FXCollections.observableArrayList();
 		filteredLogMessages = new FilteredList<>(logMessages);
 
+        // asegurar estilo de la tabla por código
+        if (tableviewLogMessages != null) {
+            tableviewLogMessages.getStyleClass().add("wos-table");
+            tableviewLogMessages.getStyleClass().add("flat-bottom");
+        }
+
+        // Wirear acciones en botones declarados en FXML
+        if (buttonResetProfileFilter != null) {
+            buttonResetProfileFilter.setOnAction(this::handleButtonResetProfileFilter);
+        }
+        if (buttonOpenLogFolder != null) {
+            buttonOpenLogFolder.setOnAction(this::handleButtonOpenLogFolder);
+        }
+        if (buttonClearLogs != null) {
+            buttonClearLogs.setOnAction(this::handleButtonClearLogs);
+        }
+
         checkboxDebug.setSelected(Optional
                 .ofNullable(ServConfig.getServices().getGlobalConfig())
                 .map(cfg -> cfg.get(EnumConfigurationKey.BOOL_DEBUG.name()))
                 .map(Boolean::parseBoolean)
                 .orElse(Boolean.parseBoolean(EnumConfigurationKey.BOOL_DEBUG.getDefaultValue())));
 
+        // Persistir estado y refrescar filtro al cambiar
         checkboxDebug.setOnAction(e -> {
             ServScheduler.getServices().saveEmulatorPath(EnumConfigurationKey.BOOL_DEBUG.name(), String.valueOf(checkboxDebug.isSelected()));
+            updateLogFilter();
         });
 		
 		columnTimeStamp.setCellValueFactory(cellData -> cellData.getValue().timeStampProperty());
@@ -93,6 +112,44 @@ public class ConsoleLogLayoutController implements IProfileDataChangeListener {
 		columnTask.setCellValueFactory(cellData -> cellData.getValue().taskProperty());
 		columnProfile.setCellValueFactory(cellData -> cellData.getValue().profileProperty());
 		
+		// Custom cell factory for Level column with colored text
+		columnLevel.setCellFactory(column -> {
+			return new TableCell<>() {
+				@Override
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+
+					// Limpiar estilos previos
+					getStyleClass().removeAll("log-level-info", "log-level-error", "log-level-warning", "log-level-debug");
+
+					if (empty || item == null) {
+						setText(null);
+					} else {
+						setText(item);
+
+						// Aplicar clase CSS según el nivel de severidad
+						switch (item.toUpperCase()) {
+							case "INFO":
+								getStyleClass().add("log-level-info");
+								break;
+							case "ERROR":
+								getStyleClass().add("log-level-error");
+								break;
+							case "WARNING":
+								getStyleClass().add("log-level-warning");
+								break;
+							case "DEBUG":
+								getStyleClass().add("log-level-debug");
+								break;
+							default:
+								// Sin color específico para otros casos
+								break;
+						}
+					}
+				}
+			};
+		});
+
 		columnMessage.setCellFactory(column -> {
 			return new TableCell<>() {
 				private final Text text = new Text();
@@ -126,6 +183,10 @@ public class ConsoleLogLayoutController implements IProfileDataChangeListener {
 		
 		// Set up filter listeners
 		setupFilterListeners();
+
+        // Aplicar filtro inicial (perfil + debug)
+        updateLogFilter();
+
 		ServProfiles.getServices().addProfileDataChangeListener(this);
 	}
 
@@ -185,9 +246,11 @@ public class ConsoleLogLayoutController implements IProfileDataChangeListener {
 
 	private void setupFilterListeners() {
 		// Listen for profile filter changes
-		comboBoxProfileFilter.valueProperty().addListener((obs, oldVal, newVal) -> {
-			updateLogFilter();
-		});
+		comboBoxProfileFilter.valueProperty().addListener((obs, oldVal, newVal) -> updateLogFilter());
+        // Listen for debug toggle changes
+        if (checkboxDebug != null) {
+            checkboxDebug.selectedProperty().addListener((obs, oldVal, newVal) -> updateLogFilter());
+        }
 	}
 
 	private void updateLogFilter() {
@@ -200,7 +263,14 @@ public class ConsoleLogLayoutController implements IProfileDataChangeListener {
 					return false;
 				}
 			}
-			
+
+            // Debug visibility filter (mostrar/ocultar según checkbox)
+            boolean showDebug = checkboxDebug != null && checkboxDebug.isSelected();
+            String severity = logMessage.severityProperty() != null ? logMessage.severityProperty().get() : null;
+            if (!showDebug && "DEBUG".equals(severity)) {
+                return false;
+            }
+
 			return true;
 		});
 	}
@@ -209,14 +279,12 @@ public class ConsoleLogLayoutController implements IProfileDataChangeListener {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		String formattedDate = LocalDateTime.now().format(formatter);
 
-		if (!checkboxDebug.isSelected() && dtoMessage.getSeverity() == EnumTpMessageSeverity.DEBUG) {
-			return;
-		}
-
+        // Siempre guardar todos los mensajes; visibilidad se controla en el filtro
 		Platform.runLater(() -> {
 			logMessages.add(0, new LogMessageAux(formattedDate, dtoMessage.getSeverity().toString(), dtoMessage.getMessage(), dtoMessage.getTask(), dtoMessage.getProfile()));
 
-			if (logMessages.size() > 600) {
+			// Aumentar límite a 2000, removiendo el más antiguo
+			if (logMessages.size() > 2000) {
 				logMessages.remove(logMessages.size() - 1);
 			}
 		});
@@ -226,6 +294,7 @@ public class ConsoleLogLayoutController implements IProfileDataChangeListener {
 	public void onProfileDataChanged(DTOProfiles profile) {
 		Platform.runLater(() -> {
 			initializeProfileFilter();
+            updateLogFilter();
 		});
 	}
 

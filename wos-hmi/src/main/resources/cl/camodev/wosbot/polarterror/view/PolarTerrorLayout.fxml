@@ -7,17 +7,17 @@
     <children>
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
             <content>
-                <VBox spacing="14" style="-fx-background-color: #1f1f1f; -fx-background-radius: 8; -fx-padding: 18;">
+                <VBox spacing="14" styleClass="events-content">
                     <children>
                         <!-- Polar Terror Section -->
-                        <VBox spacing="0" style="-fx-background-color: #242424; -fx-background-radius: 8;">
+                        <VBox spacing="0" styleClass="card">
                             <children>
                                 <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: linear-gradient(#ff7d45, #d84315); -fx-background-radius: 8 8 0 0; -fx-padding: 8 12;">
                                     <children>
                                         <CheckBox fx:id="checkBoxEnablePolarTerror" mnemonicParsing="false" style="-fx-font-weight: bold; -fx-text-fill: #1c1c1c;" text="Enable Polar Terror Hunting" />
                                     </children>
                                 </HBox>
-                                <VBox spacing="8" style="-fx-padding: 12;">
+                                <VBox spacing="8" styleClass="card-body">
                                     <children>
                                         <Label style="-fx-font-size: 10px; -fx-text-fill: #b5b5b5;" text="Automates hunting of polar terror creatures with selected settings" wrapText="true" />
 

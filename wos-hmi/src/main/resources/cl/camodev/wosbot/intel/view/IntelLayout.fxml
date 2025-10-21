@@ -7,47 +7,59 @@
     <children>
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
             <content>
-                <VBox spacing="14" style="-fx-background-color: #1f1f1f; -fx-background-radius: 8; -fx-padding: 18;">
+                <VBox spacing="14" styleClass="events-content">
                     <children>
                         <!-- Intel Section -->
-                        <VBox spacing="0" style="-fx-background-color: #242424; -fx-background-radius: 8;">
+                        <VBox spacing="0" styleClass="card">
                             <children>
                                 <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" style="-fx-background-color: linear-gradient(#00ccff, #0066ff); -fx-background-radius: 8 8 0 0; -fx-padding: 8 12;">
                                     <children>
                                         <CheckBox fx:id="checkBoxIntel" mnemonicParsing="false" style="-fx-font-weight: bold; -fx-text-fill: #1c1c1c;" text="Enable Intel" />
                                     </children>
                                 </HBox>
-                                <VBox spacing="8" style="-fx-padding: 12;">
+                                <VBox spacing="8" styleClass="card-body">
                                     <children>
                                         <Label style="-fx-font-size: 10px; -fx-text-fill: #b5b5b5;" text="Automates intelligence gathering and processing for different types of targets" wrapText="true" />
 
                                         <Separator style="-fx-opacity: 0.3; -fx-padding: 4 0;" />
 
-                                        <GridPane hgap="15" vgap="10">
-                                            <columnConstraints>
-                                                <ColumnConstraints percentWidth="50" />
-                                                <ColumnConstraints percentWidth="50" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints />
-                                                <RowConstraints />
-                                                <RowConstraints />
-                                                <RowConstraints />
-                                            </rowConstraints>
+                                        <CheckBox fx:id="checkBoxFireCrystalEra" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Fire Crystal Era" />
+
+                                        <Separator style="-fx-opacity: 0.3; -fx-padding: 4 0;" />
+
+                                        <!-- Type Section -->
+                                        <VBox spacing="8" styleClass="priority-section">
                                             <children>
-                                                <CheckBox fx:id="checkBoxFireCrystalEra" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Fire Crystal Era" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                                <Label style="-fx-text-fill: #b5b5b5; -fx-font-weight: bold;" text="Type" />
 
-                                                <CheckBox fx:id="checkBoxFireBeast" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Fire Beast" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                                <CheckBox fx:id="checkBoxBeast" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Beast" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <GridPane hgap="15" vgap="10">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints percentWidth="50" />
+                                                        <ColumnConstraints percentWidth="50" />
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints />
+                                                        <RowConstraints />
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <CheckBox fx:id="checkBoxFireBeast" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Fire Beast" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                                        <CheckBox fx:id="checkBoxBeast" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Beast" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                                                <CheckBox fx:id="checkBoxSurvivors" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Survivors" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                                                <CheckBox fx:id="checkBoxJourney" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Journey" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-                                                <CheckBox fx:id="checkBoxSmartIntel" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Smart Intel Processing" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" />
+                                                        <CheckBox fx:id="checkBoxSurvivors" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Survivors" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                                        <CheckBox fx:id="checkBoxJourney" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Journey" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                    </children>
+                                                </GridPane>
                                             </children>
-                                        </GridPane>
+                                        </VBox>
 
-                                        <VBox spacing="8" style="-fx-padding: 10 0 0 0; -fx-background-color: #2a2a2a; -fx-background-radius: 4; -fx-padding: 10;">
+                                        <Separator style="-fx-opacity: 0.3; -fx-padding: 4 0;" />
+
+                                        <CheckBox fx:id="checkBoxSmartIntel" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Smart Intel Processing" />
+
+                                        <Separator style="-fx-opacity: 0.3; -fx-padding: 4 0;" />
+
+                                        <!-- Flag Section -->
+                                        <VBox spacing="8" styleClass="priority-section">
                                             <children>
                                                 <CheckBox fx:id="checkBoxUseFlag" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Flag" />
 

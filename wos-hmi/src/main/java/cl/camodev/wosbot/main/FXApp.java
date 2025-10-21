@@ -1,6 +1,5 @@
 package cl.camodev.wosbot.main;
 
-import cl.camodev.wosbot.launcher.view.ILauncherConstants;
 import cl.camodev.wosbot.launcher.view.LauncherLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -49,7 +48,7 @@ public class FXApp extends Application {
 
 		// Crear escena con tamaño por defecto primero
 		Scene scene = new Scene(root, DEFAULT_W, DEFAULT_H);
-		scene.getStylesheets().add(ILauncherConstants.getCssPath());
+		scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/style.css")).toExternalForm());
 		stage.setScene(scene);
 		stage.getIcons().add(appIcon);
 		stage.setTitle("Launcher");

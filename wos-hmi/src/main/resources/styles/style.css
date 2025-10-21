@@ -1,0 +1,535 @@
+/* Global app background color */
+.root {
+    -fx-background-color: #0C0B17;
+}
+
+/* Optional reusable class for backgrounds */
+.app-background {
+    -fx-background-color: #0C0B17;
+}
+
+/* Sidebar container */
+.sidebar {
+    -fx-background-color: #0C0B17; /* match app background */
+    -fx-padding: 8px;
+    -fx-spacing: 6px;
+}
+
+/* Ensure scroll panes don't overlay white backgrounds */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Sidebar buttons (support both class names) */
+.square-button, .side-menu-button {
+    -fx-background-color: #0C0B17; /* inactive matches background */
+    -fx-text-fill: white;          /* inactive text color */
+    -fx-background-radius: 8;      /* rounded corners */
+    -fx-background-insets: 0;
+    -fx-padding: 8 12 8 12;        /* top right bottom left */
+    -fx-alignment: CENTER_LEFT;    /* left align text/content */
+    -fx-cursor: hand;
+    -fx-focus-color: transparent;      /* remove default focus ring color */
+    -fx-faint-focus-color: transparent;/* remove faint focus halo */
+    -fx-font-weight: bold;             /* make sidebar texts bold */
+}
+
+/* Hover for inactive state: slightly lighter background */
+.square-button:hover, .side-menu-button:hover {
+    -fx-background-color: #14122A; /* lighter than #0C0B17 */
+}
+
+/* Active state */
+.square-button.active, .side-menu-button.active {
+    -fx-background-color: #FCD176; /* active background */
+    -fx-text-fill: black;          /* active text color */
+}
+
+/* Hover when active: subtly lighter highlight */
+.square-button.active:hover, .side-menu-button.active:hover {
+    -fx-background-color: #FFD88E;
+    -fx-text-fill: black;
+}
+
+/* Sidebar scroll: thin vertical bar on the RIGHT side */
+.sidebar-scroll {
+    -fx-background-color: transparent;
+}
+.sidebar-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+.sidebar-scroll > .scroll-bar:vertical {
+    -fx-pref-width: 6px; /* scrollbar aún más delgado */
+    -fx-background-color: transparent;
+}
+.sidebar-scroll > .scroll-bar:vertical .track {
+    -fx-background-color: transparent; /* transparent track background */
+}
+.sidebar-scroll > .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255,255,255,0.20); /* más sutil */
+    -fx-background-insets: 0;
+    -fx-background-radius: 3; /* rounded thumb más pequeño */
+    -fx-pref-width: 4px; /* thumb más delgado */
+}
+.sidebar-scroll > .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(255,255,255,0.35);
+}
+/* Hide arrow buttons for a cleaner, thinner look */
+.sidebar-scroll > .scroll-bar:vertical .increment-button,
+.sidebar-scroll > .scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+    -fx-opacity: 0;
+}
+/* Remove corner fill if both bars would be visible */
+.sidebar-scroll > .corner {
+    -fx-background-color: transparent;
+}
+
+/* Bottom action bar background */
+.bottom-bar {
+    -fx-background-color: #11101C;
+    -fx-border-color: #20202D transparent transparent transparent; /* top border only */
+    -fx-border-width: 1 0 0 0; /* 1px top */
+}
+
+/* Bottom bar text color for labels */
+.bottom-bar .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Pause button style */
+.pause-button {
+    -fx-background-radius: 5;
+    -fx-opacity: 0.5;
+}
+
+/* Start/Stop button (regular Button) */
+.button.btn-start {
+    -fx-background-color: #FCD176;
+    -fx-text-fill: black;
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+    -fx-font-weight: bold;
+}
+.button.btn-start:hover {
+    -fx-background-color: #FFD88E;
+}
+
+.button.btn-stop {
+    -fx-background-color: #FF271E;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-background-insets: 0;
+    -fx-font-weight: bold;
+}
+.button.btn-stop:hover {
+    -fx-background-color: #FF4A3F;
+}
+
+/* Pause/Resume button (SplitMenuButton). We style both label and arrow regions */
+.split-menu-button.btn-pause,
+.split-menu-button.btn-pause > .label,
+.split-menu-button.btn-pause > .arrow-button {
+    -fx-background-color: #D08700;
+    -fx-text-fill: black;
+    -fx-background-radius: 6;
+    -fx-background-insets: 0;
+}
+.split-menu-button.btn-pause:hover,
+.split-menu-button.btn-pause:hover > .label,
+.split-menu-button.btn-pause:hover > .arrow-button {
+    -fx-background-color: #E59900;
+}
+.split-menu-button.btn-pause .label {
+    -fx-text-fill: black;
+}
+
+.split-menu-button.btn-resume,
+.split-menu-button.btn-resume > .label,
+.split-menu-button.btn-resume > .arrow-button {
+    -fx-background-color: #00A63E;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-background-insets: 0;
+}
+.split-menu-button.btn-resume:hover,
+.split-menu-button.btn-resume:hover > .label,
+.split-menu-button.btn-resume:hover > .arrow-button {
+    -fx-background-color: #00B84A;
+}
+.split-menu-button.btn-resume .label {
+    -fx-text-fill: white;
+}
+
+/* --- TableView theme: .wos-table --- */
+.table-view.wos-table {
+    /* Fondo base y redondeo del contenedor */
+    -fx-background-color: #11101C;      /* mismo tono que las filas */
+    -fx-background-insets: 0;
+    -fx-background-radius: 8;           /* esquinas redondeadas */
+    -fx-border-color: #20202D;          /* borde visible 1px */
+    -fx-border-width: 1;                /* 1px alrededor */
+    -fx-border-radius: 8;
+    -fx-padding: 0;                      /* evita halos que rompan el redondeo */
+
+    /* Ocultar estilos de selección/foco predeterminados */
+    -fx-selection-bar: transparent;
+    -fx-selection-bar-non-focused: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+
+    -fx-control-inner-background: #11101C;      /* fondo interno para evitar blancos */
+    -fx-control-inner-background-alt: #11101C;  /* misma tonalidad en filas alternas */
+    -fx-table-cell-border-color: transparent;   /* sin separadores verticales internos */
+    -fx-table-header-border-color: transparent; /* sin separadores verticales en cabecera */
+}
+
+/* Cabecera: color, alto y redondeo en las esquinas superiores */
+.table-view.wos-table > .column-header-background {
+    -fx-background-color: #FCD176;
+    -fx-pref-height: 40px;              /* alto de cabecera */
+    -fx-background-radius: 8 8 0 0;     /* solo arriba redondeado */
+    -fx-border-color: transparent; /* sin línea inferior */
+    -fx-border-width: 0;
+}
+/* Filler y cada header column acompañan el color y alto */
+.table-view.wos-table .filler,
+.table-view.wos-table .column-header {
+    -fx-background-color: #FCD176;
+    -fx-pref-height: 40px;
+}
+.table-view.wos-table .column-header .label {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-padding: 0 10px;                /* centrado visual vertical con 40px de alto */
+}
+.table-view.wos-table .column-header .arrow,
+.table-view.wos-table .column-header .sort-order-dot {
+    -fx-background-color: black;
+}
+
+/* Hacer transparente el interior para que se aprecien las esquinas redondeadas */
+.table-view.wos-table .virtual-flow,
+.table-view.wos-table .virtual-flow > .clipped-container,
+.table-view.wos-table .virtual-flow > .clipped-container > .sheet,
+.table-view.wos-table > .placeholder,
+.table-view.wos-table > .column-header-background > .filler {
+    -fx-background-color: transparent;
+}
+
+/* Filas: fondo base + línea horizontal de 1px arriba (solo horizontales) */
+.table-view.wos-table .table-row-cell {
+    -fx-background-color: #11101C;     /* fondo fila */
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: #20202D transparent transparent transparent; /* 1px arriba */
+    -fx-border-width: 1 0 0 0;
+    -fx-border-insets: 0;
+}
+.table-view.wos-table .table-row-cell:hover {
+    -fx-background-color: #151421;     /* hover */
+}
+
+/* Quitar las capas previas para líneas horizontales (evita líneas dobles) */
+
+/* Selección invisible (mantener) */
+.table-view.wos-table .table-row-cell:selected,
+.table-view.wos-table .table-row-cell:selected .table-cell,
+.table-view.wos-table .table-cell:selected {
+    -fx-background-color: transparent; /* no resalte */
+    -fx-background-insets: 0;
+}
+
+/* Corregir base plana cuando hay footer (sin borde inferior) */
+.table-view.wos-table.flat-bottom {
+    -fx-background-radius: 8 8 0 0;
+    -fx-border-radius: 8 8 0 0;
+    -fx-border-width: 1 1 1 1;
+}
+
+/* Footer de la consola que extiende visualmente la tabla */
+.console-footer {
+    -fx-background-color: #11101C;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0 0 8 8;   /* redondeo solo abajo */
+    -fx-padding: 6 10;
+    -fx-spacing: 8;
+    -fx-border-color: #20202D;        /* borde en laterales e inferior */
+    -fx-border-width: 0 1 1 1;        /* sin borde superior (ya lo pinta la tabla) */
+    -fx-border-radius: 0 0 8 8;
+}
+
+/* --- Console toolbar (filtros/acciones) --- */
+.console-toolbar {
+    -fx-background-color: #11101C;
+    -fx-padding: 6 10;
+    -fx-spacing: 8;
+    -fx-background-insets: 0;
+    -fx-border-color: #20202D;        /* borde completo 1px */
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+}
+
+/* Botón: Open Logs Folder (azul) */
+.button.btn-open-folder {
+    -fx-background-color: #155DFC;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-background-insets: 0;
+    -fx-font-weight: bold;
+    -fx-graphic-text-gap: 6;
+}
+.button.btn-open-folder:hover {
+    -fx-background-color: #2A6BFF;
+}
+
+/* Asegurar el icono outline (SVGPath) sin relleno, solo trazo */
+.button .icon-outline {
+    -fx-fill: transparent;
+    -fx-stroke: white;        /* por defecto blanco; se puede sobreescribir por botón */
+    -fx-stroke-width: 1.6;
+}
+
+/* Coherencia de separación icono-texto en stop/open */
+.button.btn-stop,
+.button.btn-open-folder {
+    -fx-graphic-text-gap: 6;
+}
+
+/* --- ComboBox oscuro para filtros --- */
+.combo-box.combo-dark {
+    -fx-background-color: #11101C;
+    -fx-background-insets: 0;
+    -fx-background-radius: 6;
+    -fx-border-color: #20202D;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-text-fill: white;
+    -fx-mark-color: white; /* color de la flecha */
+}
+.combo-box.combo-dark > .list-cell {
+    -fx-text-fill: white;
+}
+.combo-box.combo-dark > .arrow-button {
+    -fx-background-color: transparent;
+}
+.combo-box.combo-dark:focused {
+    -fx-border-color: #155DFC; /* acento al enfocar */
+}
+/* Popup del combo (lista desplegable) */
+.combo-box-popup > .list-view {
+    -fx-background-color: #11101C, #11101C;
+    -fx-background-insets: 0, 1;
+    -fx-control-inner-background: #11101C;
+    -fx-border-color: #20202D;
+    -fx-border-width: 1;
+}
+.combo-box-popup > .list-view .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+}
+.combo-box-popup > .list-view .list-cell:hover {
+    -fx-background-color: #151421;
+}
+.combo-box-popup > .list-view .list-cell:selected {
+    -fx-background-color: transparent; /* sin resalte de selección */
+    -fx-text-fill: white;
+}
+
+/* --- Botón Reset icon-only --- */
+.button.btn-reset {
+    -fx-background-color: #11101C;
+    -fx-border-color: #20202D;
+    -fx-border-width: 1;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-padding: 4 8;
+    -fx-min-width: 32; -fx-min-height: 32;
+    -fx-pref-width: 32; -fx-pref-height: 32;
+    -fx-cursor: hand;
+}
+.button.btn-reset:hover {
+    -fx-background-color: #151421;
+}
+.button.btn-reset .icon-reset {
+    -fx-fill: transparent;
+    -fx-stroke: #155DFC;
+    -fx-stroke-width: 2;
+}
+.button.btn-reset:hover .icon-reset {
+    -fx-stroke: #2A6BFF;
+}
+
+/* --- Debug toggle en footer: diferencia claro entre estados --- */
+.check-box.debug-toggle {
+    -fx-text-fill: white;       /* texto blanco solicitado */
+    -fx-cursor: hand;
+}
+/* Estado desmarcado: caja transparente con borde amarillo */
+.check-box.debug-toggle > .box {
+    -fx-background-color: transparent;
+    -fx-border-color: #FCD176;
+    -fx-border-width: 1;
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+}
+/* Hover en desmarcado: borde más claro */
+.check-box.debug-toggle:hover > .box {
+    -fx-border-color: #FFD88E;
+}
+/* Estado marcado: fondo amarillo en la caja */
+.check-box.debug-toggle:selected > .box {
+    -fx-background-color: #FCD176;
+    -fx-border-color: transparent;
+}
+/* Hover en marcado: amarillo más claro */
+.check-box.debug-toggle:selected:hover > .box {
+    -fx-background-color: #FFD88E;
+}
+/* Tick negro visible cuando aplica */
+.check-box.debug-toggle .mark {
+    -fx-background-color: black;
+}
+.check-box.debug-toggle {
+    -fx-mark-color: black;
+}
+
+/*!* --- Events/cards theming --- *!*/
+/*!* Contenedor de contenido dentro del ScrollPane de Events *!*/
+.events-content {
+    -fx-background-color: transparent; /* usamos el fondo global del app */
+    -fx-padding: 18;
+    -fx-spacing: 14;
+}
+
+/* Card genérica para secciones del panel de eventos */
+.card {
+    -fx-background-color: #11101C; /* superficie del proyecto */
+    -fx-background-radius: 8;
+    -fx-background-insets: 0;
+    -fx-border-color: #20202D; /* borde sutil acorde al tema */
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+}
+
+/* Cuerpo de la card (debajo del header) */
+.card-body {
+    -fx-padding: 12;
+    -fx-spacing: 8;
+}
+
+/* --- Log severity level colors (sutiles para contraste con tabla oscura) --- */
+.log-level-info {
+    -fx-text-fill: #66B3FF; /* azul suave */
+}
+
+.log-level-error {
+    -fx-text-fill: #FF6B6B; /* rojo suave */
+}
+
+.log-level-warning {
+    -fx-text-fill: #FFD666; /* amarillo suave */
+}
+
+.log-level-debug {
+    -fx-text-fill: #E8E8E8; /* blanco suave */
+}
+
+/* List View Container */
+.priority-list-view {
+    -fx-background-color: #2b2b2b;
+    -fx-border-color: #3c3f41;
+    -fx-border-width: 1px;
+}
+
+/* List Cell Base Style */
+.priority-list-cell {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #cccccc;
+}
+
+/* List Cell Hover Effect */
+.priority-list-cell:hover {
+    -fx-background-color: #313335;
+}
+
+/* List Cell - Drag Over Top */
+.priority-list-cell-drag-over-top {
+    -fx-background-color: #2b2b2b;
+    -fx-border-color: #4A9EFF transparent transparent transparent;
+    -fx-border-width: 2 0 0 0;
+}
+
+/* List Cell - Drag Over Bottom */
+.priority-list-cell-drag-over-bottom {
+    -fx-background-color: #2b2b2b;
+    -fx-border-color: transparent transparent #4A9EFF transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+/* List Cell - Disabled (nuevo agregado) */
+.priority-list-cell-disabled {
+    -fx-background-color: #262626;
+    -fx-text-fill: #777777;
+    -fx-opacity: 0.6;
+    -fx-cursor: default;
+}
+
+/* Drag Indicator (☰ icon) */
+.priority-drag-indicator {
+    -fx-font-size: 14px;
+    -fx-text-fill: #808080;
+    -fx-cursor: hand;
+}
+
+.priority-drag-indicator-disabled {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+    -fx-cursor: hand;
+}
+
+/* Priority Number Label */
+.priority-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-text-fill: #4A9EFF;
+}
+
+.priority-label-disabled {
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-text-fill: #ff5555;
+}
+
+/* Item Name Label */
+.priority-name-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #cccccc;
+    -fx-opacity: 1.0;
+}
+
+.priority-name-label-disabled {
+    -fx-font-size: 12px;
+    -fx-text-fill: #888888;
+    -fx-opacity: 0.5;
+}
+
+/* Backwards-compatible alias: some FXML files use "start-button" as a styleClass.
+   Map it to the same visual rules as .button.btn-start to avoid unresolved-style warnings. */
+.start-button, .button.start-button {
+    -fx-background-color: #FCD176;
+    -fx-text-fill: black;
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+    -fx-font-weight: bold;
+}
+.start-button:hover, .button.start-button:hover {
+    -fx-background-color: #FFD88E;
+}
+
+/*!* --- Events/cards theming --- *!*/
+

@@ -1,68 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="306.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="306.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="277.0" vgrow="SOMETIMES" />
-      <RowConstraints vgrow="NEVER" />
+    <RowConstraints vgrow="NEVER" />
+    <RowConstraints vgrow="ALWAYS" />
+    <RowConstraints vgrow="NEVER" />
   </rowConstraints>
-   <children>
-      <TableView fx:id="tableviewLogMessages" prefHeight="200.0" prefWidth="200.0">
-        <columns>
-          <TableColumn fx:id="columnTimeStamp" editable="false" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" resizable="false" sortable="false" text="TIMESTAMP" />
-            <TableColumn fx:id="columnLevel" editable="false" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" sortable="false" text="LEVEL" />
-          <TableColumn fx:id="columnMessage" editable="false" maxWidth="1.7976931348623157E308" prefWidth="196.0" sortable="false" text="MESSAGE" />
-            <TableColumn fx:id="columnProfile" editable="false" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" sortable="false" text="PROFILE" />
-            <TableColumn fx:id="columnTask" editable="false" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" sortable="false" text="TASK" />
-        </columns>
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <HBox alignment="CENTER_RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
-         <children>
-            <CheckBox fx:id="checkboxDebug" mnemonicParsing="false" text="DEBUG" HBox.hgrow="NEVER">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </CheckBox>
-            <ComboBox fx:id="comboBoxProfileFilter" prefWidth="120.0" HBox.hgrow="NEVER">
-               <HBox.margin>
-                  <Insets right="5.0" />
-               </HBox.margin>
-            </ComboBox>
-            <Button fx:id="buttonResetProfileFilter" mnemonicParsing="false" onAction="#handleButtonResetProfileFilter" text="Reset filter" HBox.hgrow="NEVER">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="buttonOpenLogFolder" mnemonicParsing="false" onAction="#handleButtonOpenLogFolder" text="Open Logs Folder" HBox.hgrow="NEVER">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="buttonClearLogs" mnemonicParsing="false" onAction="#handleButtonClearLogs" text="Clear Logs" HBox.hgrow="NEVER">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Button>
-         </children>
-      </HBox>
-   </children>
+  <children>
+    <!-- Toolbar superior -->
+    <HBox alignment="CENTER_LEFT" spacing="8" styleClass="console-toolbar" GridPane.rowIndex="0">
+      <children>
+        <!-- empujador para alinear a la derecha -->
+        <Region HBox.hgrow="ALWAYS" />
+        <ComboBox fx:id="comboBoxProfileFilter" styleClass="combo-dark" prefWidth="150.0" />
+        <Button fx:id="buttonResetProfileFilter" styleClass="btn-reset" mnemonicParsing="false" text="">
+          <graphic>
+            <!-- Icono de reinicio (flecha circular) -->
+            <SVGPath styleClass="icon-reset" content="M12 4 A8 8 0 0 1 20 12 M20 12 L18 10 M20 12 L22 10 M12 20 A8 8 0 0 1 4 12 M4 12 L6 14 M4 12 L2 14" />
+          </graphic>
+        </Button>
+      </children>
+      <GridPane.margin>
+        <Insets bottom="6.0" />
+      </GridPane.margin>
+    </HBox>
+
+    <!-- Tabla de logs -->
+    <TableView fx:id="tableviewLogMessages" styleClass="wos-table flat-bottom" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+      <columns>
+        <TableColumn fx:id="columnTimeStamp" editable="false" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" resizable="false" sortable="false" text="TIMESTAMP" />
+        <TableColumn fx:id="columnLevel" editable="false" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" sortable="false" text="LEVEL" />
+        <TableColumn fx:id="columnMessage" editable="false" maxWidth="1.7976931348623157E308" prefWidth="196.0" sortable="false" text="MESSAGE" />
+        <TableColumn fx:id="columnProfile" editable="false" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" sortable="false" text="PROFILE" />
+        <TableColumn fx:id="columnTask" editable="false" maxWidth="140.0" minWidth="140.0" prefWidth="140.0" sortable="false" text="TASK" />
+      </columns>
+      <columnResizePolicy>
+        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+      </columnResizePolicy>
+    </TableView>
+
+    <!-- Footer bajo la tabla (extensión visual) -->
+    <HBox alignment="CENTER_LEFT" spacing="8" styleClass="console-footer" GridPane.rowIndex="2">
+      <children>
+        <!-- CheckBox DEBUG movido al footer con estilo dependiente del estado -->
+        <CheckBox fx:id="checkboxDebug" text="DEBUG" styleClass="debug-toggle" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button fx:id="buttonOpenLogFolder" mnemonicParsing="false" styleClass="btn-open-folder" text="Open Logs Folder">
+          <graphic>
+            <SVGPath content="M3 7 L9 7 L11 9 L21 9 L21 20 L3 20 Z M9 7 L9 5 L5 5 L5 7 Z" styleClass="icon-outline" />
+          </graphic>
+        </Button>
+        <Button fx:id="buttonClearLogs" mnemonicParsing="false" styleClass="btn-stop" text="Clear Logs">
+          <graphic>
+            <SVGPath content="M4 7 L20 7 M7 7 L7 21 L17 21 L17 7 M9 7 L9 5 L15 5 L15 7 M10 11 L10 18 M14 11 L14 18" styleClass="icon-outline" />
+          </graphic>
+        </Button>
+      </children>
+    </HBox>
+  </children>
 </GridPane>

@@ -18,7 +18,6 @@ import cl.camodev.wosbot.alliance.view.AllianceLayoutController;
 import cl.camodev.wosbot.alliancechampionship.view.AllianceChampionshipLayoutController;
 import cl.camodev.wosbot.bear.view.BearTrapLayoutController;
 import cl.camodev.wosbot.chieforder.view.ChiefOrderLayoutController;
-import cl.camodev.wosbot.city.view.CityEventsExtraLayoutController;
 import cl.camodev.wosbot.city.view.CityEventsLayoutController;
 import cl.camodev.wosbot.city.view.CityUpgradesLayoutController;
 import cl.camodev.wosbot.console.enumerable.EnumConfigurationKey;
@@ -58,12 +57,18 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import cl.camodev.wosbot.alliance.view.AllianceShopController;
+import javafx.geometry.NodeOrientation;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 
 public class LauncherLayoutController implements IProfileLoadListener, IStaminaChangeListener {
 
@@ -93,6 +98,14 @@ public class LauncherLayoutController implements IProfileLoadListener, IStaminaC
     private ProfileAux currentProfile = null; // Perfil actualmente cargado
     private boolean allQueuesPaused = false;
     private final Map<Long, DTOQueueProfileState> activeQueueStates = new HashMap<>();
+    @FXML
+    private MenuItem menuToggleCurrentQueue;
+    @FXML
+    private ScrollPane sidebarScroll;
+    @FXML
+    private GridPane bottomBar;
+    @FXML
+    private VBox sideBarContainer;
 
     public LauncherLayoutController(Stage stage) {
         this.stage = stage;
@@ -113,11 +126,54 @@ public class LauncherLayoutController implements IProfileLoadListener, IStaminaC
         buttonPauseResume.setDisable(true);
         configurePauseMenu();
 
+        // Wirear eventos por código (en lugar de FXML)
+        if (buttonStartStop != null) {
+            buttonStartStop.setOnAction(this::handleButtonStartStop);
+        }
+        if (buttonPauseResume != null) {
+            buttonPauseResume.setOnAction(this::handleButtonPauseResume);
+        }
+        if (menuToggleCurrentQueue != null) {
+            menuToggleCurrentQueue.setOnAction(this::handleToggleCurrentQueue);
+        }
+        if (menuToggleAllQueues != null) {
+            menuToggleAllQueues.setOnAction(this::handleToggleAllQueues);
+        }
+
+        // Apply sidebar style class and normal orientation to the left menu container
+        if (sideBarContainer != null) {
+            sideBarContainer.getStyleClass().add("sidebar");
+            sideBarContainer.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        }
+        if (buttonsContainer != null) {
+            // Ensure inner buttons also keep normal orientation
+            buttonsContainer.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        }
+        // Move vertical scrollbar to the left and add a specific style class
+        if (sidebarScroll != null) {
+            sidebarScroll.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+            sidebarScroll.getStyleClass().add("sidebar-scroll");
+        }
+        // Apply bottom bar background style
+        if (bottomBar != null) {
+            bottomBar.getStyleClass().add("bottom-bar");
+        }
+
+        // Initialize action buttons' styles
+        updateStartStopButtonStyle();
+        updatePauseButtonStyle();
+
+        // Ensure icon is placed to the left of the text with spacing
+        if (buttonStartStop != null) {
+            buttonStartStop.setContentDisplay(ContentDisplay.LEFT);
+            buttonStartStop.setGraphicTextGap(8);
+        }
+
     }
 
     private void showVersion() {
         String version = getVersion();
-        labelVersion.setText("Version: " + version);
+        labelVersion.setText("Whiteout Survival Bot v" + version);
     }
 
     private String getVersion() {
@@ -375,28 +431,27 @@ public class LauncherLayoutController implements IProfileLoadListener, IStaminaC
 
     private void initializeModules() {
         //@formatter:off
-		List<ModuleDefinition> modules = Arrays.asList(				
-				new ModuleDefinition("TaskManagerLayout", "Task Manager", TaskManagerLayoutController::new),
-				new ModuleDefinition("CityUpgradesLayout", "City Upgrades", CityUpgradesLayoutController::new),
-				new ModuleDefinition("CityEventsLayout", "City Events", CityEventsLayoutController::new),
-				new ModuleDefinition("CityEventsExtraLayout", "Extra City Events", CityEventsExtraLayoutController::new),
-				new ModuleDefinition("PolarTerrorLayout", "Polar Terror", PolarTerrorLayoutController::new),
-				new ModuleDefinition("ShopLayout", "Shop", ShopLayoutController::new),
-				new ModuleDefinition("GatherLayout", "Gather", GatherLayoutController::new),
-				new ModuleDefinition("IntelLayout", "Intel", IntelLayoutController::new),
-				new ModuleDefinition("AllianceLayout", "Alliance", AllianceLayoutController::new),
+        List<ModuleDefinition> modules = Arrays.asList(
+                new ModuleDefinition("TaskManagerLayout", "Task Manager", TaskManagerLayoutController::new),
+                new ModuleDefinition("CityUpgradesLayout", "City Upgrades", CityUpgradesLayoutController::new),
+                new ModuleDefinition("CityEventsLayout", "City Events", CityEventsLayoutController::new),
+                new ModuleDefinition("PolarTerrorLayout", "Polar Terror", PolarTerrorLayoutController::new),
+                new ModuleDefinition("ShopLayout", "Shop", ShopLayoutController::new),
+                new ModuleDefinition("GatherLayout", "Gather", GatherLayoutController::new),
+                new ModuleDefinition("IntelLayout", "Intel", IntelLayoutController::new),
+                new ModuleDefinition("AllianceLayout", "Alliance", AllianceLayoutController::new),
                 new ModuleDefinition("AllianceChampionshipLayout", "Alliance Championship", AllianceChampionshipLayoutController::new),
                 new ModuleDefinition("AllianceShop", "Alliance Shop", AllianceShopController::new),
                 new ModuleDefinition("AllianceMobilizationLayout", "Alliance Mobilization", MobilizationLayoutController::new),
                 new ModuleDefinition("BearTrapLayout", "Bear Trap", BearTrapLayoutController::new),
-				new ModuleDefinition("TrainingLayout", "Training", TrainingLayoutController::new),
-				new ModuleDefinition("PetsLayout", "Pets", PetsLayoutController::new),
-				new ModuleDefinition("EventsLayout", "Events", EventsLayoutController::new),
-				new ModuleDefinition("ExpertsLayout", "Experts", ExpertsLayoutController::new),
-				new ModuleDefinition("ChiefOrderLayout", "Chief Order", ChiefOrderLayoutController::new),
-				new ModuleDefinition("EmuConfigLayout", "Config", EmuConfigLayoutController::new)
-				);
-		//@formatter:on
+                new ModuleDefinition("TrainingLayout", "Training", TrainingLayoutController::new),
+                new ModuleDefinition("PetsLayout", "Pets", PetsLayoutController::new),
+                new ModuleDefinition("EventsLayout", "Events", EventsLayoutController::new),
+                new ModuleDefinition("ExpertsLayout", "Experts", ExpertsLayoutController::new),
+                new ModuleDefinition("ChiefOrderLayout", "Chief Order", ChiefOrderLayoutController::new),
+                new ModuleDefinition("EmuConfigLayout", "Config", EmuConfigLayoutController::new)
+                );
+        //@formatter:on
 
         for (ModuleDefinition module : modules) {
             consoleLogLayoutController.appendMessage(new DTOLogMessage(EnumTpMessageSeverity.INFO, "Loading module: " + module.buttonTitle(), "-", "-"));
@@ -411,6 +466,8 @@ public class LauncherLayoutController implements IProfileLoadListener, IStaminaC
             }
         }
         profileManagerLayoutController.addProfileLoadListener(this);
+
+        // Se elimina la auto-selección del primer botón para respetar la selección de Logs hecha previamente.
     }
 
 
@@ -478,6 +535,9 @@ public class LauncherLayoutController implements IProfileLoadListener, IStaminaC
                 resetPauseStates();
                 estado = false;
             }
+            // Update styles after any state change
+            updateStartStopButtonStyle();
+            updatePauseButtonStyle();
         }
     }
 
@@ -681,8 +741,10 @@ public class LauncherLayoutController implements IProfileLoadListener, IStaminaC
             return;
         }
 
-        String text = allQueuesPaused ? "Resume All Queues" : "Pause All Queues";
+        String text = allQueuesPaused ? "Resume All" : "Pause All";
         buttonPauseResume.setText(text);
+        // Also refresh its style to reflect pause/resume color
+        updatePauseButtonStyle();
     }
 
 
@@ -691,6 +753,7 @@ public class LauncherLayoutController implements IProfileLoadListener, IStaminaC
         activeQueueStates.clear();
         refreshPauseMenuItems();
         updatePauseButtonState();
+        updatePauseButtonStyle();
     }
 
     private void showProfileSelectionWarning() {
@@ -763,8 +826,9 @@ public class LauncherLayoutController implements IProfileLoadListener, IStaminaC
             button.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(button, Priority.ALWAYS);
 
-            // Asigna la clase personalizada para esquinas cuadradas a este botón
+            // Asigna clases de estilo para el menú lateral
             button.getStyleClass().add("square-button");
+            button.getStyleClass().add("side-menu-button");
 
             button.setOnAction(e -> {
                 // Limpia el contenido actual y agrega el nuevo panel
@@ -812,6 +876,56 @@ public class LauncherLayoutController implements IProfileLoadListener, IStaminaC
         }
 
 
+    }
+
+    // Styling helpers for bottom action buttons
+    private void updateStartStopButtonStyle() {
+        if (buttonStartStop == null) return;
+        buttonStartStop.getStyleClass().removeAll("btn-start", "btn-stop");
+        if (estado) {
+            buttonStartStop.getStyleClass().add("btn-stop");
+            buttonStartStop.setGraphic(buildStopIcon(Color.WHITE));
+        } else {
+            buttonStartStop.getStyleClass().add("btn-start");
+            buttonStartStop.setGraphic(buildPlayIcon(Color.BLACK));
+        }
+    }
+
+    // Build a simple right-pointing play triangle (hollow)
+    private Node buildPlayIcon(Color color) {
+        Polygon triangle = new Polygon(
+                0.0, 0.0,
+                0.0, 12.0,
+                10.0, 6.0
+        );
+        triangle.setFill(Color.TRANSPARENT);
+        triangle.setStroke(color);
+        triangle.setStrokeWidth(2.0);
+        return triangle;
+    }
+
+    // Build a simple stop square (hollow)
+    private Node buildStopIcon(Color color) {
+        Rectangle square = new Rectangle(10, 10);
+        square.setArcWidth(2);
+        square.setArcHeight(2);
+        square.setFill(Color.TRANSPARENT);
+        square.setStroke(color);
+        square.setStrokeWidth(2.0);
+        return square;
+    }
+
+    private void updatePauseButtonStyle() {
+        if (buttonPauseResume == null) return;
+        buttonPauseResume.getStyleClass().removeAll("btn-pause", "btn-resume");
+        if (buttonPauseResume.isDisabled()) {
+            return; // keep default disabled look
+        }
+        if (allQueuesPaused) {
+            buttonPauseResume.getStyleClass().add("btn-resume");
+        } else {
+            buttonPauseResume.getStyleClass().add("btn-pause");
+        }
     }
 
 }
