@@ -176,7 +176,6 @@
     -fx-border-width: 1;                /* 1px alrededor */
     -fx-border-radius: 8;
     -fx-padding: 0;                      /* evita halos que rompan el redondeo */
-
     /* Ocultar estilos de selección/foco predeterminados */
     -fx-selection-bar: transparent;
     -fx-selection-bar-non-focused: transparent;
@@ -311,7 +310,7 @@
     -fx-border-radius: 6;
     -fx-text-fill: white;
     -fx-mark-color: white;
-    
+
 }
 .combo-box.combo-dark > .list-cell {
     -fx-text-fill: white;
@@ -531,6 +530,31 @@
 }
 .start-button:hover, .button.start-button:hover {
     -fx-background-color: #FFD88E;
+}
+
+/* TableView custom scrollbar for wos-table: transparent track, thin yellow thumb */
+.table-view.wos-table .scroll-bar:vertical,
+.table-view.wos-table .scroll-bar:horizontal {
+    -fx-background-color: transparent; /* make the scrollbar background invisible */
+    -fx-pref-width: 8px; /* overall scrollbar width (container) */
+    -fx-pref-height: 8px;
+}
+.table-view.wos-table .scroll-bar:vertical .track,
+.table-view.wos-table .scroll-bar:horizontal .track {
+    -fx-background-color: transparent; /* transparent track */
+}
+.table-view.wos-table .scroll-bar:vertical .thumb,
+.table-view.wos-table .scroll-bar:horizontal .thumb {
+    -fx-background-color: #FCD176; /* project yellow */
+    -fx-background-insets: 0;
+    -fx-background-radius: 4; /* rounded thumb */
+    -fx-pref-width: 6px; /* thinner look for vertical thumb */
+    -fx-pref-height: 6px; /* thinner for horizontal thumb */
+    -fx-border-color: transparent;
+}
+.table-view.wos-table .scroll-bar:vertical .thumb:hover,
+.table-view.wos-table .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #FFD88E; /* lighter yellow on hover */
 }
 
 /*!* --- Events/cards theming --- *!*/

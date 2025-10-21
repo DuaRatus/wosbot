@@ -872,12 +872,25 @@ public class LauncherLayoutController implements IProfileLoadListener, IStaminaC
     // Styling helpers for bottom action buttons
     private void updateStartStopButtonStyle() {
         if (buttonStartStop == null) return;
+        // Remove any existing start/stop classes first
         buttonStartStop.getStyleClass().removeAll("btn-start", "btn-stop");
+        // Also ensure legacy 'start-button' class does not conflict when in STOP state
         if (estado) {
-            buttonStartStop.getStyleClass().add("btn-stop");
+            // Running -> show Stop (red)
+            buttonStartStop.getStyleClass().remove("start-button");
+            if (!buttonStartStop.getStyleClass().contains("btn-stop")) {
+                buttonStartStop.getStyleClass().add("btn-stop");
+            }
             buttonStartStop.setGraphic(buildStopIcon(Color.WHITE));
         } else {
-            buttonStartStop.getStyleClass().add("btn-start");
+            // Stopped -> show Start (yellow)
+            // Ensure 'start-button' class present so start style applies
+            if (!buttonStartStop.getStyleClass().contains("start-button")) {
+                buttonStartStop.getStyleClass().add("start-button");
+            }
+            if (!buttonStartStop.getStyleClass().contains("btn-start")) {
+                buttonStartStop.getStyleClass().add("btn-start");
+            }
             buttonStartStop.setGraphic(buildPlayIcon(Color.BLACK));
         }
     }
@@ -908,10 +921,8 @@ public class LauncherLayoutController implements IProfileLoadListener, IStaminaC
 
     private void updatePauseButtonStyle() {
         if (buttonPauseResume == null) return;
+        // Ensure pause/resume classes are kept up-to-date even when the control is disabled.
         buttonPauseResume.getStyleClass().removeAll("btn-pause", "btn-resume");
-        if (buttonPauseResume.isDisabled()) {
-            return; // keep default disabled look
-        }
         if (allQueuesPaused) {
             buttonPauseResume.getStyleClass().add("btn-resume");
         } else {
