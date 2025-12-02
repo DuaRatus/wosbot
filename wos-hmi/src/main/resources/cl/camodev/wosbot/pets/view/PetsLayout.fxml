@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -57,7 +58,11 @@
                                         <!-- Pet Skills Section -->
                                         <VBox spacing="8" styleClass="priority-section">
                                             <children>
-                                                <Label style="-fx-text-fill: #b5b5b5; -fx-font-weight: bold;" text="Pet Skills" />
+                                                <HBox maxWidth="1.7976931348623157E308">
+                                                    <children>
+                                                        <CheckBox fx:id="checkBoxPetSkills" mnemonicParsing="false" style="-fx-font-weight: bold; -fx-text-fill: #e5e5e5;" text="Activate Pet Skills" />
+                                                    </children>
+                                                </HBox>
 
                                                 <GridPane hgap="20" vgap="10">
                                                     <columnConstraints>
@@ -67,12 +72,19 @@
                                                     <rowConstraints>
                                                         <RowConstraints />
                                                         <RowConstraints />
+                                                        <RowConstraints />
                                                     </rowConstraints>
                                                     <children>
                                                         <CheckBox fx:id="checkboxStaminaSkill" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Stamina Skill" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                                         <CheckBox fx:id="checkboxFoodSkill" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Food Skill" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                                         <CheckBox fx:id="checkboxTreasureSkill" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Treasure Skill" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                                         <CheckBox fx:id="checkboxGatheringSkill" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Gathering Skill" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                        <VBox spacing="5" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                                            <children>
+                                                                <Label style="-fx-text-fill: #b5b5b5; -fx-font-size: 10px;" text="Gathering Resource:" />
+                                                                <ComboBox fx:id="comboBoxGatheringResource" maxWidth="1.7976931348623157E308" prefHeight="26.0" promptText="Select resource type" style="-fx-font-size: 11px;" />
+                                                            </children>
+                                                        </VBox>
                                                     </children>
                                                 </GridPane>
                                             </children>
