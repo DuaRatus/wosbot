@@ -44,11 +44,13 @@
                                                     <children>
                                                         <CheckBox fx:id="checkBoxFireBeast" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Fire Beast" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                                         <CheckBox fx:id="checkBoxBeast" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Beast" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-
                                                         <CheckBox fx:id="checkBoxSurvivors" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Survivors" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                                         <CheckBox fx:id="checkBoxJourney" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Journey" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                        <CheckBox fx:id="checkBoxSmartIntel" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Use Smart Intel Processing" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                                        <CheckBox fx:id="checkBoxRecallGatherTroops" mnemonicParsing="false" style="-fx-text-fill: #e5e5e5;" text="Recall Gather Troops" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                     </children>
                                                 </GridPane>
+
                                             </children>
                                         </VBox>
 

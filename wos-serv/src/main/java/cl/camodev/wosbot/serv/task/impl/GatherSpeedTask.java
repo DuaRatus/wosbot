@@ -37,9 +37,6 @@ import cl.camodev.wosbot.serv.task.EnumStartLocation;
  */
 public class GatherSpeedTask extends DelayedTask {
 
-	// ========== Configuration Keys ==========
-	private static final boolean DEFAULT_TASK_ENABLED = true;
-
 	// ========== Navigation Coordinates ==========
 	private static final DTOPoint PROFILE_MENU_BUTTON = new DTOPoint(40, 118);
 	private static final DTOPoint GROWTH_TAB = new DTOPoint(530, 122);
@@ -72,7 +69,6 @@ public class GatherSpeedTask extends DelayedTask {
 	private static final int BOOST_8H_GEM_COST = 250;
 
 	// ========== Configuration (loaded in loadConfiguration()) ==========
-	private boolean taskEnabled;
 	private BoostType boostType;
 
 	public GatherSpeedTask(DTOProfiles profile, TpDailyTaskEnum tpTask) {
@@ -83,10 +79,6 @@ public class GatherSpeedTask extends DelayedTask {
 	 * Loads task configuration from profile.
 	 */
 	private void loadConfiguration() {
-		Boolean configuredEnabled = profile.getConfig(
-				EnumConfigurationKey.GATHER_SPEED_BOOL, Boolean.class);
-		this.taskEnabled = (configuredEnabled != null) ? configuredEnabled : DEFAULT_TASK_ENABLED;
-
 		String boostTypeValue = profile.getConfig(
 				EnumConfigurationKey.GATHER_SPEED_BOOST_TYPE_STRING, String.class);
 
@@ -98,19 +90,13 @@ public class GatherSpeedTask extends DelayedTask {
 			this.boostType = BoostType.BOOST_8H; // Default
 		}
 
-		logDebug(String.format("Configuration loaded - Enabled: %s, Boost type: %s",
-				taskEnabled, boostType.getName()));
+		logDebug(String.format("Configuration loaded - Boost type: %s",
+				boostType.getName()));
 	}
 
 	@Override
 	protected void execute() {
 		loadConfiguration();
-
-		if (!taskEnabled) {
-			logInfo("Gather speed boost task is disabled in configuration.");
-			setRecurring(false);
-			return;
-		}
 
 		logInfo(String.format("Starting gather speed boost task (%s).", boostType.getName()));
 
@@ -198,9 +184,10 @@ public class GatherSpeedTask extends DelayedTask {
 	private boolean handleObtainDialog() {
 		logDebug("Checking for Obtain dialog");
 
-		String obtainText = OCRWithRetries(
+		String obtainText = readStringValue(
 				OBTAIN_DIALOG_TEXT_TOP_LEFT,
-				OBTAIN_DIALOG_TEXT_BOTTOM_RIGHT);
+				OBTAIN_DIALOG_TEXT_BOTTOM_RIGHT,
+				null);
 
 		if (obtainText == null || obtainText.isEmpty()) {
 			logDebug("No Obtain dialog detected");
@@ -235,9 +222,10 @@ public class GatherSpeedTask extends DelayedTask {
 	private boolean handlePurchaseConfirmation() {
 		logDebug("Checking for purchase confirmation dialog");
 
-		String purchaseText = OCRWithRetries(
+		String purchaseText = readStringValue(
 				PURCHASE_DIALOG_TEXT_TOP_LEFT,
-				PURCHASE_DIALOG_TEXT_BOTTOM_RIGHT);
+				PURCHASE_DIALOG_TEXT_BOTTOM_RIGHT,
+				null);
 
 		if (purchaseText == null || purchaseText.isEmpty()) {
 			logDebug("No purchase confirmation dialog");
@@ -277,9 +265,10 @@ public class GatherSpeedTask extends DelayedTask {
 	private void handleBoostReplacementDialog() {
 		logDebug("Checking for boost replacement dialog");
 
-		String confirmText = OCRWithRetries(
+		String confirmText = readStringValue(
 				BOOST_REPLACE_TEXT_TOP_LEFT,
-				BOOST_REPLACE_TEXT_BOTTOM_RIGHT);
+				BOOST_REPLACE_TEXT_BOTTOM_RIGHT,
+				null);
 
 		if (confirmText == null || confirmText.isEmpty()) {
 			logDebug("No boost replacement dialog");

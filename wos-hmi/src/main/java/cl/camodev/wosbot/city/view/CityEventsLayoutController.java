@@ -51,7 +51,7 @@ public class CityEventsLayoutController extends AbstractProfileController {
 		checkBoxMappings.put(checkBoxCrystalLabFC, EnumConfigurationKey.BOOL_CRYSTAL_LAB_FC);
 		checkBoxMappings.put(checkBoxDailyDiscountedRFC, EnumConfigurationKey.BOOL_CRYSTAL_LAB_DAILY_DISCOUNTED_RFC);
 		checkBoxMappings.put(checkBoxExplorationChest, EnumConfigurationKey.BOOL_EXPLORATION_CHEST);
-		checkBoxMappings.put(checkBoxWarAcademyShards, EnumConfigurationKey.BOOL_WAR_ACADEMY_SHARDS);
+		checkBoxMappings.put(checkBoxWarAcademyShards, EnumConfigurationKey.WAR_ACADEMY_TASK_BOOL);
 		checkBoxMappings.put(checkBoxMailRewards, EnumConfigurationKey.MAIL_REWARDS_BOOL);
 		checkBoxMappings.put(checkBoxLifeEssence, EnumConfigurationKey.LIFE_ESSENCE_BOOL);
 		checkBoxMappings.put(checkBoxWeeklyScroll, EnumConfigurationKey.LIFE_ESSENCE_BUY_WEEKLY_SCROLL_BOOL);
@@ -63,7 +63,7 @@ public class CityEventsLayoutController extends AbstractProfileController {
 		textFieldMappings.put(textfieldLifeEssenceOffset, EnumConfigurationKey.LIFE_ESSENCE_OFFSET_INT);
 		textFieldMappings.put(textfieldDailyMissionOffset, EnumConfigurationKey.DAILY_MISSION_OFFSET_INT);
 
-		comboBoxMondayRefinements.getItems().addAll(0, 20, 40, 60);
+		comboBoxMondayRefinements.getItems().addAll(0,14,20,34,40,54,60,74,80,94);
 		comboBoxMappings.put(comboBoxMondayRefinements, EnumConfigurationKey.INT_WEEKLY_RFC);
 
 		// Extra CityEvents mappings
